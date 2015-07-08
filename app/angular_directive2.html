@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="js/vendor/angular.js"></script>
+
+    <link rel="stylesheet" href="css/vendor/bootstrap.css" />
+
+    <script type="text/javascript">
+        var module = angular.module('myApp', []);
+        module.directive('dir1', function(){
+            var directive = {};
+
+            directive.restrict = "E"; // Element
+            directive.template = "Time for now: {{timeX}}";
+
+            return directive;
+        });
+
+        module.directive('dir2', function(){
+            var directive = {};
+            directive.restrict = "E"; // Element
+            directive.templateUrl = "directive_template1.html";
+
+            return directive;
+        });
+
+        module.directive('dir3', function(){
+            var directive = {};
+            directive.restrict = "E";
+            directive.template = "<h5>name: <kbd>{{user.name}}</kbd>, age: <kbd>{{user.age}}</kbd></h5>";
+
+            directive.scope = {
+                user: '=name' // user <= 'name' attribute
+            };
+
+            return directive;
+        });
+
+        module.directive('dir4', function() {
+            var directive = {};
+
+            // Use compile() to return link() function, to replace template, or templateURL
+            directive.restrict = "E";
+
+            directive.compile = function(element, attributes) {
+                element.css('backgroundColor', 'gray');
+
+                var link = function($scope, element, attributes) {
+                    element.html('This is from link() function: '+ $scope.timeX);
+                    element.css('color', 'blue');
+                };
+
+                return link;
+            };
+
+            return directive;
+        });
+
+        module.directive('dir5', function(){
+            var directive = {};
+
+            directive.restrict = "E";
+
+            directive.link = function($scope, element, attributes) {
+                element.css('color', 'red');
+                element.append("Hello link(): " + $scope.timeX);
+            };
+
+            return directive;
+        });
+
+        module.directive('dir6', function(){
+            var directive = {};
+            directive.restrict = "E";
+
+            directive.template = "<blockquote ng-transclude class='text-warning'></blockquote>"; // ng-transclude
+            directive.transclude = true; // .transclude = true
+
+            return directive;
+        });
+
+        module.controller('myController1', function($scope, $interval){
+            $scope.timeX = new Date();
+
+            $interval(function(){
+                $scope.timeX = new Date();
+            }, 1000, 0, true);
+
+            $scope['hunter'] = {
+                name: 'Hunter',
+                age: 32
+            };
+
+            $scope['jiali'] = {
+                name: 'Sara',
+                age: 31
+            };
+        });
+    </script>
+</head>
+<body ng-app="myApp">
+    <div class="container" ng-controller="myController1">
+        <h1>directive - restrict, template</h1>
+        <dir1></dir1>
+
+        <h1>directive - templateUrl</h1>
+        <dir2></dir2>
+
+        <h1>directive - scope (Parameter)</h1>
+        <dir3 name="hunter"></dir3>
+        <dir3 name="jiali"></dir3>
+
+        <h1>directive - compile() => link()</h1>
+        <h3>compile() only called once for each directive</h3>
+        <h3>compile() must return link() function</h3>
+        <h3>compile() => init()</h3>
+        <h3>link() => render()</h3>
+        <dir4></dir4>
+
+        <h1>directive - only link()</h1>
+        <dir5></dir5>
+
+        <h1>directive - transclude</h1>
+        <dir6>Transclude {{timeX}}</dir6>
+    </div>
+</body>
+</html>

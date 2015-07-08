@@ -1,0 +1,484 @@
+<html>
+<head>
+    <script src="js/vendor/angular.js"></script>
+    <script src="js/vendor/i18n/angular-locale_zh-tw.js"></script>
+
+    <style>
+        .invalid {
+            color: red;
+        }
+
+        .valid {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h3>Main feature and advantages: <a href="http://www.tutorialspoint.com/angularjs/angularjs_quick_guide.htm">Go</a></h3>
+    <h4>Books: <a href="http://www.tutorialspoint.com/angularjs/angularjs_useful_resources.htm">Go</a></h4>
+
+    <!-- ng-app -->
+    <!-- ng-init -->
+    <!-- ng-controller -->
+    <!-- init with value, oibject, array -->
+    <div ng-app="testModule" ng-init="name='JiWei';a=7;b=8;obj={name:'Hunter', age:32};points=[2,5,1,7]" ng-controller="personController">
+        <!-- ng-model -->
+        <input name="input" type="input" ng-model="name" />
+
+        <!-- ng-bind -->
+        Your input is: <span ng-bind="name"></span><br />
+        a*b: <span ng-bind="a*b"></span><br />
+        Controller Method => plus(4,5): <span ng-bind="plus(4,5)"></span><br />
+        User: <span ng-bind="obj.name+ '-'+ obj.age"></span><br />
+        array[3]: <span ng-bind="points[3]"></span> <br />
+
+        <!-- expression -->
+        Your input is: {{name}}<br />
+        5+5: {{5+5}}; 5*5: {{5*5}}; a*b: {{a*b}} <br />
+
+        value1 + value2: {{value1+value2}} <br />
+
+        Controller Method => 4+5: {{plus(4, 5)}} <br />
+        User: {{obj.name + '-' + obj.age}} <br />
+        array[3]: {{points[3]}} <br />
+
+        <!-- ng-repeat -->
+        <div>
+            <span ng-repeat="p in points">
+                <span ng-bind="p"></span>
+                 - {{p}}
+            </span>
+        </div>
+
+        <!-- ng-repeat, Array -->
+        <ul>
+            <li ng-repeat="b in books">
+                <span>$index:{{$index}}, {{b.name + "=>" + b.price}}</span>
+                <span>$first:{{$first}}, $middle: {{$middle}}, $last:{{$last}}</span>
+            </li>
+        </ul>
+
+        <!-- ng-repeat, Object -->
+        <ol>
+            <li ng-repeat="(key, value) in master">
+                {{key}} -> {{value}}
+            </li>
+        </ol>
+
+        <!-- ng-repeat-start, ng-repeat-stop -->
+        <ul>
+            <li ng-repeat-start="(key, value) in master">
+                {{key}}
+            </li>
+            <li ng-repeat-end>
+                {{value}}
+            </li>
+        </ul>
+
+        <!-- Filter -->
+        Upper: {{name|uppercase}} <br />
+        Lowwer: {{name|lowercase}} <br />
+        Currency: {{55|currency}} <br />
+        <ul>
+            <li ng-repeat="b in books | orderBy: 'price'">
+                {{b.name}} : {{b.price}}
+            </li>
+        </ul>
+
+        <!-- Filter by value -->
+        <h4>Filter by String</h4>
+        <ul>
+            <li ng-repeat="b in books | filter: 'Storm' | orderBy: 'price'">
+                {{b.name}} => {{b.price}}
+            </li>
+        </ul>
+
+        <!-- Filter by function -->
+        <h4>Filter by Function</h4>
+        <ul>
+            <li ng-repeat="b in books | filter: filterBook | orderBy: 'price'">
+                {{b.name}} => {{b.price}}
+            </li>
+        </ul>
+
+        <!-- Filter assign to Variable -->
+        <h4>Filter result Assign</h4>
+        <ol>
+            <li ng-repeat="b in books2 = (books | filter: filterBook)">
+                {{b.name}} - {{b.price}}
+            </li>
+        </ol>
+        <p>books2.length = {{books2.length}}</p>
+
+        <h4>Customized Filter</h4>
+        <ul>
+            <li ng-repeat="b in (books | myFilter: 0:2)">
+                {{b.name}} => {{b.price}}
+            </li>
+        </ul>
+
+        <h4>Order by Name</h4>
+        <ol>
+            <li ng-repeat="name in names">
+                {{name.Name}} => {{name.Country}}
+            </li>
+        </ol>
+        <table>
+            <tr ng-repeat="name in names | orderBy: 'Name'">
+                <td>{{name.Name}}</td>
+                <td>{{name.Country|uppercase}}</td>
+            </tr>
+        </table>
+
+        <h4>| limitTo:2</h4>
+        <table>
+            <tr ng-repeat="b in books| limitTo: 2">
+                <td>{{b.name}}</td>
+                <td>{{b.price}}</td>
+            </tr>
+        </table>
+
+        <h4>| number</h4>
+        <p>{{75923|number}}</p>
+
+        <h4>| json</h4>
+        <p>Object: {{master}}</p>
+        <p>JSON: {{master|json}}</p>
+
+        <!-- ng-disabled -->
+        <h4>ng-disabled</h4>
+        Disabled checkbox <input type="checkbox" ng-disabled="switch" />
+        Click to enable and disable: <input type="checkbox" ng-model="switch" /> <br />
+
+        <!-- ng-show -->
+        <h4>ng-show</h4>
+        <p ng-show="show">Show me</p>
+        Click to show or hide: <input type="checkbox" ng-model="show" /> <br />
+
+        <!-- ng-hide -->
+        <h4>ng-hide</h4>
+        <p ng-hide="hide">Hide me</p>
+        Click to show or hide2: <input type="checkbox" ng-model="hide" /> <br />
+
+        <!-- ng-click -->
+        <h4>ng-click</h4>
+        <p>
+        <input type="button" ng-click="addName()" value="Add ! for name" />
+        </p>
+
+        <!-- form -->
+        <h4>form</h4>
+        <form novalidate>
+            <input type="text" ng-model="user.name" />
+            <input type="text" ng-model="user.age" />
+            <p><input type="button" value="Reset" ng-click="reset()" /></p>
+            <p>{{user}}</p><p>{{master}}</p>
+        </form>
+
+        <h4>form - check box</h4>
+        <form novalidate>
+            <p>
+                Check it: <input type="checkbox" ng-model="check1" />
+                {{check1}}
+            </p>
+        </form>
+
+        <h4>form -radio button</h4>
+        <form novalidate>
+            <p>
+                Radio1: <input type="radio" name="radio1" value="Radio 1" ng-model="radioX" />
+                Radio2: <input type="radio" name="radio1" value="Radio 2" ng-model="radioX" />
+            </p>
+            {{radioX}}
+        </form>
+
+        <h4>form -select</h4>
+        <form novalidate>
+            <select ng-model="selectX">
+                <option value="book">Book</option>
+                <option value="game">Game</option>
+                <option value="ralax">Relax</option>
+            </select>
+        </form>
+
+        <h5>ng-options</h5>
+        <form novalidate>
+            <p>optionBinding Expression dataSource Expression</p>
+            <p>dataSource Expression => for obj in optionArray</p>
+            <p>optionBinding Expression => keyfield as valuefield(example: obj.id as obj.name)</p>
+            {{selectY}}
+            <select ng-model="selectY"
+                    ng-options="obj.id as obj.name for obj in classmates">
+            </select>
+
+            , {{selectY}}:
+            <select ng-model="selectY"
+                    ng-options="obj.value as obj.name for obj in classmates">
+                <option value="">Please choose a name</option>
+            </select>
+
+            , {{selectY}}
+            <select ng-model="selectY"
+                    ng-options="obj.value as obj.name for obj in classmates"
+                    multiple="true">
+                <option value="">Please choose a name</option>
+            </select>
+        </form>
+
+        <!-- form validation -->
+        <!-- form noinvalid, name is required-->
+        <!-- input, name is required. -->
+        <!-- input has required, email as tyle -->
+        <!-- use form.fieldname.$error.email -->
+        <!-- use form.fieldname.$error.required -->
+        <!-- use form.fieldname.$invalid -->
+        <!-- use form.fieldname.$dirty -->
+        <h4>form validation</h4>
+        <form novalidate name="myForm">
+            <input type="text" name="student_name" ng-model="student.name" required>
+            <span ng-show="myForm.student_name.$error.required">Name is required</span> <br />
+
+            <input type="email" name="student_email" ng-model="student.email" required>
+            <span ng-show="myForm.student_email.$error.required">Email is required</span>
+            <span ng-show="myForm.student_email.$error.email">Email is not formatted correctly</span>
+
+            <p><input type="button" value="Submit" ng-disabled="(myForm.student_name.$dirty && myForm.student_name.$invalid) ||
+            (myForm.student_email.$dirty && myForm.student_email.$invalid)" /></p>
+
+            <p>
+                <h5>ng-minlengh && ng-maxlength</h5>
+                <input type="text" name="minmax" ng-model="minmax" ng-minlength="5" ng-maxlength="8" />
+                $error: {{myForm.minmax.$error}}
+                , Only valid output will be here: {{minmax}}
+            </p>
+            <p>
+                <h5>ng-pattern && ng-required && ng-class</h5>
+                <input type="text" name="ngpattern" ng-model="ngpattern" ng-pattern="/^(\d+)?$/" ng-required="true" />
+                $error: {{myForm.ngpattern.$error}}
+                , Only valid output will be here: {{ngpattern}}
+                , myForm.$pristine, if form not changed: {{myForm.$pristine}}<br />
+                , $dirty: {{myForm.$dirty}}
+                , $valid: {{myForm.$valid}}
+                , $invalid: {{myForm.$invalid}}<br />
+                , ngpattern.$dirty: {{myForm.ngpattern.$dirty}}
+                , <span ng-class="{valid: getNgPatternClass()}">ngpattern.$valid: {{myForm.ngpattern.$valid}}</span>
+                , <span ng-class="getNgPatternInvalid()">ngpattern.$invalid: {{myForm.ngpattern.$invalid}}</span>
+            </p>
+        </form>
+
+        <!-- ng-submit -->
+        <h4>ng-submit</h4>
+        <form name="myForm2" ng-submit="myForm2_submit()" novalidate>
+            <input type="text" name="name" ng-model="myForm2_name" ng-required="true" ng-pattern="/^\d+$/"/>
+            <input type="submit" value="Submit" />
+            myForm2.name: {{myForm2.name}}
+            <p>$error: {{myForm2.name.$error}}</p>
+            <p>$valid: {{myForm2.name.$valid}}</p>
+            <p>$invalid: {{myForm2.name.$invalid}}</p>
+            <p>$dirty: {{myForm2.name.$dirty}}</p>
+        </form>
+
+        <!-- ng-include-->
+        <h4>ng-include</h4>
+        <!-- pay attention to the single quote -->
+        <p>
+            <div ng-include="'include1.html'"></div>
+        </p>
+        <p>
+            <span ng-include="'include2.html'"></span>
+        </p>
+
+        <h4>i18n</h4>
+        <h5>date</h5>
+        <p>Local related(i18n): {{dateX | date}}</p>
+        <p>Local related(i18n) yyyy-MM-dd HH:mm:ss: {{dateX | date: 'yyyy-MM-dd HH:mm:ss'}}</p>
+        <p>Local related(i18n) medium: {{dateX | date: 'medium'}}</p>
+        <p>Local related(i18n) short: {{dateX | date: 'short'}}</p>
+        <p>Local related(i18n) fullDate: {{dateX | date: 'fullDate'}}</p>
+        <p>Local related(i18n) mediumDate: {{dateX | date: 'mediumDate'}}</p>
+        <p>Local related(i18n) shortDate: {{dateX | date: 'shortDate'}}</p>
+        <p>Local related(i18n) longDate: {{dateX | date: 'longDate'}}</p>
+        <p>Local related(i18n) shortTime: {{dateX | date: 'shortTime'}}</p>
+        <p>Local related(i18n) mediumTime: {{dateX | date: 'mediumTime'}}</p>
+
+        <h5>currency</h5>
+        <p>Local related(i18n): {{18 | currency}}</p>
+        <p>Local related(i18n) '$': {{18 | currency: '$'}}</p>
+
+        <h5>number</h5>
+        <p>Local related(i18n): {{18234 | number}}</p>
+
+        <h4>ng-bind</h4>
+        <div ng-bind="html"></div>
+
+        <!-- ng-switch -->
+        <!-- ng-switch-when -->
+        <!-- ng-switch-default -->
+        <h4>ng-switch</h4>
+        <div ng-switch="switch">
+            <div ng-switch-when="1">Switch 1</div>
+            <div ng-switch-when="2">Switch 2</div>
+            <div ng-switch-default>Switch Default</div>
+        </div>
+
+        <!-- ng-if -->
+        <h4>ng-if</h4>
+        <div ng-if="if">If content</div>
+        <div ng-if="if2">If2 content</div>
+
+        <!-- $watch(), $digest(), $apply() -->
+        <h4>$watch()</h4>
+        <div>
+            <input type="button" ng-click="updateTime()" value="Update Time(ng-click)" />
+            <input type="button" id="buttonUpdateTime" value="Update Time(normal button)" />
+        </div>
+        <p>{{timeX}}</p>
+
+        <!-- $timeout-->
+        <h4>$timeout</h4>
+        <p>{{time3}}</p>
+
+        <!-- $inerval -->
+        <h4>$interval</h4>
+        <p>{{time4}}</p>
+    </div>
+
+    <script>
+        // Create new module
+        var testModule = angular.module('testModule', []);
+
+        // Use existing module
+        //var testModule = angular.module('testModule');
+
+        // Create controller under a new module.
+        testModule.controller('personController', function($scope, $http, $timeout, $interval) {
+            $scope.value1 = 777;
+            $scope.value2 = " Go";
+
+            $scope.plus = function(a, b) {
+                return a + b;
+            };
+
+            $scope.books = [{
+                name: "Hadoop",
+                price: 58.5
+            }, {
+                name: "Spark",
+                price: 97
+            }, {
+                name: "Hbase",
+                price: 78
+            }, {
+                name: "Storm",
+                price: 88
+            }];
+
+            $scope.filterBook = function(item) {
+                if(item['price']>78) {
+                    return true;
+                } else {
+                    return false;
+                }
+            };
+
+            $http.get('json/Customers.json').success(function(response){
+                console.info('json/Customers.json ', response);
+
+                $scope.names = response;
+            });
+
+            $scope.addName = function(evt) {
+                $scope.name = $scope.name + "!";
+            };
+
+            // angular.copy
+            $scope.master = {name: 'Hunter', age: 32};
+            $scope.reset = function() {
+                $scope.user = angular.copy($scope.master);
+            };
+
+            $scope.reset();
+
+            //
+            $scope.student = {};
+
+            $scope.dateX = new Date();
+
+            $scope.html = '<span color="red">RED</span>';
+
+            // ng-switch
+            $scope.switch=2;
+
+            // ng-if, remove the DOM
+            $scope.if = true;
+            $scope.if2 = false;
+
+            // $watch(), $digest(), $apply()
+            $scope.timeX = new Date();
+            $scope.updateTime = function() {
+                $scope.timeX = new Date();
+            };
+
+            document.getElementById('buttonUpdateTime').addEventListener('click', function(evt){
+                console.info("Native Click Event");
+
+                // It will not trigger the $watch automatically
+                $scope.timeX = new Date();
+
+                // Must do this to allow update automatically.
+                $scope.$digest();
+
+                // Or you can do following, $apply => $digest automatically
+                $scope.$apply(function() {
+                    $scope.timeX = new Date();
+                });
+            });
+
+            // Form - Select
+            $scope.selectX = "game";
+
+            // Form - ng-options
+            $scope.classmates = [{name: "Jia Li", id: "yunjiali", value: "yunjiali"}, {name: "Guang Qun", id: "liguangqun", value: "liguangqun"}, {name: "Wei Wei", id: "linweiwei", value: "linweiwei"}];
+            $scope.selectY = "liguangqun";
+
+            // Form - ng-class
+            $scope.getNgPatternClass = function() {
+                return $scope.myForm.ngpattern.$valid;
+            };
+
+            $scope.getNgPatternInvalid = function() {
+                return $scope.myForm.ngpattern.$invalid?"invalid":"";
+            }
+
+            // Form - ng-submit
+            $scope.myForm2_name = "hunter";
+            $scope.myForm2_submit = function() {
+                console.info("$scope.myForm2.submit()", $scope.myForm2.name);
+            };
+
+            // $timeout
+            $timeout(function(){$scope.time3 = new Date();}, 3000, true/*if the function is called within $scope.$apply()*/);
+
+            // $interval
+            $interval(function(){$scope.time4 = new Date();}, 1000, 0/*count*/, true/*if the function is called within $scope.$apply()*/);
+        });
+
+        // Customized filter
+        testModule.filter('myFilter', function(){
+            return function(items, start, end) {
+                console.info("myFilter, ", items);
+
+                var result = [];
+                for(var i in items) {
+                    if(i>=start && i<end) {
+                        var item = items[i];
+                        result.push(item);
+                    }
+                }
+
+                return result;
+            }
+        });
+    </script>
+</body>
+</html>
