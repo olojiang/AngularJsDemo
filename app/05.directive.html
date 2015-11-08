@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="UTF-8">
+    <title>Directive</title>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="js/directive.js"></script>
+</head>
+<body ng-app="myModule">
+    <div id="main" ng-controller="myController">
+        <!-- Simple template -->
+        <h3>Simple Template</h3>
+        <userinfo>
+            Will be replaced
+        </userinfo>
+
+        <!-- Isolated Scope -->
+        <h3>Isolated Scope</h3>
+        <user-info-isolated user="jiwei"></user-info-isolated>
+        <user-info-isolated user="jiali"></user-info-isolated>
+
+        <!-- With compile() -->
+        <h3>compile()</h3>
+        <compile-element attrkey="aaa"></compile-element>
+        <compile-element attrkey="bbb"></compile-element>
+
+        <!-- With link() only -->
+        <h3>link()</h3>
+        <element-link attrkey="ccc"></element-link>
+        <element-link attrkey="ddd"></element-link>
+
+        <!-- Transclude -->
+        <!-- May hve outer scope, $parent will access the item -->
+        <h3>Transclude</h3>
+        <element-transclude attrkey="eee">Hello from inner: {{$parent.item.label}}</element-transclude>
+        <element-transclude attrkey="fff">Hello from inner: {{$parent.item.label}}</element-transclude>
+    </div>
+</body>
+</html>
