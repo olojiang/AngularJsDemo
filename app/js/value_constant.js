@@ -21,10 +21,10 @@ myModule.config(function (const1) {
     console.info("const1:", const1);
 });
 
-myModule.controller("myController", function ($scope, value1, value2, value3, const1) {
+myModule.controller("myController", ['$scope', 'value1', 'value2', 'value3', 'const1', function ($scope, value1, value2, value3, const1) {
     $scope.value = value1;
     $scope.value2 = value2;
     $scope.value3 = value3;
     $scope.const1 = const1;
-});
+}]);
 

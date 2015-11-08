@@ -10,7 +10,7 @@
 </head>
 <body ng-app="myModule">
     <div id="main" ng-controller="myController">
-        <div>Base controller: {{count}}</div>
+        <div>Base controller: {{count}}, one time binding: {{::count}}</div>
         <div ng-controller="myController">
             <div>Middle controller: {{count}}</div>
             <div><button ng-click="up()">Emit</button><button ng-click="down()">Broadcast</button></div>
