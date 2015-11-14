@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="UTF-8">
+    <title>Filter</title>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="js/filter.js"></script>
+</head>
+<body ng-app="myModule">
+    <div id="main" ng-controller="myController">
+        <form name="form" novalidate class="css-form">
+            <div>
+                <label>Filter List: <input type="text" ng-model="user.filter" name="filter" required /></label>
+            </div>
+        </form>
+        <div ng-repeat="item in list | filter: user.filter | orderBy: 'name'">
+            {{item | json}}
+        </div>
+    </div>
+</body>
+</html>
