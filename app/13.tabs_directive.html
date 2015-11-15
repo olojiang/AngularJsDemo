@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="UTF-8">
+    <title>Tabs, demo directive combination</title>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="js/tabs.js"></script>
+    <style type="text/css">
+        li.tab {
+            display: inline-block;
+            padding: 15px;
+            border-bottom: 5px solid lightgray;
+        }
+        li.tab:hover {
+            background-color: gray;
+            color: white;
+        }
+        li.tab:hover a {
+            color: white;
+        }
+        li.tab.active {
+            border-bottom: 5px solid blue;
+        }
+    </style>
+</head>
+<body ng-app="myModule">
+    <div id="main" ng-controller="myController">
+        <my-tabs>
+            <tab title="Tab1">
+                <h3>tab1 content</h3>
+            </tab>
+            <tab title="Tab2">
+                <h3>tab2 content</h3>
+            </tab>
+        </my-tabs>
+    </div>
+</body>
+</html>

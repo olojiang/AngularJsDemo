@@ -1,0 +1,12 @@
+<div class="tabContainer">
+    <div class="tabHeader">
+        <ul class="tabs">
+            <li class="tab" ng-class="{active: pane.selected}" ng-repeat="pane in panes">
+                <a href="" ng-click="select(pane)">{{pane.title}}</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tabContent" ng-transclude>
+
+    </div>
+</div>
