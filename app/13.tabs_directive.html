@@ -23,6 +23,16 @@
         li.tab.active {
             border-bottom: 5px solid blue;
         }
+
+        .clickLink {
+            cursor: pointer;
+            display: inline-block;
+            border: 1px solid #eee;
+            padding: 5px 10px;
+        }
+        .clickLink:hover {
+            background-color: #f3f3f3;
+        }
     </style>
 </head>
 <body ng-app="myModule">
@@ -33,6 +43,7 @@
             </tab>
             <tab title="Tab2">
                 <h3>tab2 content</h3>
+                <a ng-click="n=n+1" class="clickLink">Click me</a> {{n || 0}}
             </tab>
         </my-tabs>
     </div>

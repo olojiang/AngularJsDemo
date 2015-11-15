@@ -42,6 +42,7 @@ myModule.directive("myTabs", [function () {
     return directive;
 }]);
 
+// Create
 myModule.directive("tab", [function () {
     var directive = {};
 
@@ -54,8 +55,11 @@ myModule.directive("tab", [function () {
 
     directive.require = ['^myTabs']; // require = '^parentController'
 
+    // isolatedScopeVariable: '=attributeName' => $scope[isolatedScopeVariable] = $scopeParent[attributeValue], = is & + @
+    // scopeVariable: '@attributeName' => $scope[scopeVariable] = attributeValue, attributeValue can be string or expression, top => down
+    // scopeVariable: '&attributeName' => let attribute value evaluated with outer scope, attributeValue is string, down => top
     directive.scope = {
-        title: '@' // isolatedScopeVariable: '=attributeName', , '&attributeName' let attribute value evaluated with outer scope
+        title: '@'
     };
 
     directive.link = function (scope, element, attrs, controllers) {
