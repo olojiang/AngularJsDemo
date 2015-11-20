@@ -10,9 +10,14 @@
 </head>
 <body ng-app="myModule">
     <div id="main" ng-controller="myController">
+        <h3>Provider $get(), string</h3>
         value1: {{value1}}<br/>
+        <h3>Provider $get(), object</h3>
         value2: {{value2}}<br/>
+        <h3>Provider $get(), function</h3>
         value3: {{value3}}<br/>
+        <h3>Provider $get(), function, configured with constant, and with config()</h3>
+        value4: {{value4}}<br/>
     </div>
 </body>
 </html>

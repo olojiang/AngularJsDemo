@@ -10,12 +10,16 @@
 </head>
 <body ng-app="myModule">
     <div id="main" ng-controller="myController">
+        <h3>Value</h3>
         Value from, value injection: {{value}}
         <br/>
         Value2: {{value2}}
         <br/>
         Value3: {{value3}}
         <br/>
+        Value4: {{value4 | json}}
+        <br/>
+        <h3>Constant</h3>
         const1: {{const1}}
     </div>
 </body>
