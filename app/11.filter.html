@@ -10,6 +10,7 @@
 </head>
 <body ng-app="myModule">
     <div id="main" ng-controller="myController">
+        <h3>Default filter filter string within list of object</h3>
         <form name="form" novalidate class="css-form">
             <div>
                 <label>Filter List: <input type="text" ng-model="user.filter" name="filter" required /></label>
@@ -17,6 +18,17 @@
         </form>
         <div ng-repeat="item in list | filter: user.filter | orderBy: 'name'">
             {{item | json}}
+        </div>
+
+        <h3>Customized filter</h3>
+        <div class="filterDiv">
+            {{msg1 | hello}}<br />
+            {{msg2 | hello}}
+        </div>
+
+        <h3>Customized filter, with 2 parameters</h3>
+        <div class="filterDiv">
+            {{msg2 | hello2:'param1':'param2'}}
         </div>
     </div>
 </body>
