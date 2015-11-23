@@ -1,7 +1,8 @@
 <html>
 <head>
-    <script src="js/vendor/angular.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
     <script src="js/vendor/i18n/angular-locale_zh-tw.js"></script>
+    <script src="js/start_basic.js"></script>
 
     <style>
         .invalid {
@@ -14,18 +15,17 @@
     </style>
 </head>
 <body>
-    <h3>Main feature and advantages: <a href="http://www.tutorialspoint.com/angularjs/angularjs_quick_guide.htm">Go</a></h3>
-    <h4>Books: <a href="http://www.tutorialspoint.com/angularjs/angularjs_useful_resources.htm">Go</a></h4>
-
     <!-- ng-app -->
     <!-- ng-init -->
     <!-- ng-controller -->
     <!-- init with value, oibject, array -->
     <div ng-app="testModule" ng-init="name='JiWei';a=7;b=8;obj={name:'Hunter', age:32};points=[2,5,1,7]" ng-controller="personController">
         <!-- ng-model -->
+        <h3>ng-model</h3>
         <input name="input" type="input" ng-model="name" />
 
         <!-- ng-bind -->
+        <h3>ng-bind</h3>
         Your input is: <span ng-bind="name"></span><br />
         a*b: <span ng-bind="a*b"></span><br />
         Controller Method => plus(4,5): <span ng-bind="plus(4,5)"></span><br />
@@ -33,6 +33,7 @@
         array[3]: <span ng-bind="points[3]"></span> <br />
 
         <!-- expression -->
+        <h3>Expression</h3>
         Your input is: {{name}}<br />
         5+5: {{5+5}}; 5*5: {{5*5}}; a*b: {{a*b}} <br />
 
@@ -43,6 +44,7 @@
         array[3]: {{points[3]}} <br />
 
         <!-- ng-repeat -->
+        <h3>ng-repeat, Array</h3>
         <div>
             <span ng-repeat="p in points">
                 <span ng-bind="p"></span>
@@ -51,6 +53,7 @@
         </div>
 
         <!-- ng-repeat, Array -->
+        <h3>ng-repeat, Array of object</h3>
         <ul>
             <li ng-repeat="b in books">
                 <span>$index:{{$index}}, {{b.name + "=>" + b.price}}</span>
@@ -59,45 +62,21 @@
         </ul>
 
         <!-- ng-repeat, Object -->
+        <h3>ng-repeat, object</h3>
         <ol>
             <li ng-repeat="(key, value) in master">
                 {{key}} -> {{value}}
             </li>
         </ol>
 
-        <!-- ng-repeat-start, ng-repeat-stop -->
+        <!-- ng-repeat-start, ng-repeat-end -->
+        <h3>ng-repeat-start, ng-repeat-end, object</h3>
         <ul>
             <li ng-repeat-start="(key, value) in master">
                 {{key}}
             </li>
             <li ng-repeat-end>
                 {{value}}
-            </li>
-        </ul>
-
-        <!-- Filter -->
-        Upper: {{name|uppercase}} <br />
-        Lowwer: {{name|lowercase}} <br />
-        Currency: {{55|currency}} <br />
-        <ul>
-            <li ng-repeat="b in books | orderBy: 'price'">
-                {{b.name}} : {{b.price}}
-            </li>
-        </ul>
-
-        <!-- Filter by value -->
-        <h4>Filter by String</h4>
-        <ul>
-            <li ng-repeat="b in books | filter: 'Storm' | orderBy: 'price'">
-                {{b.name}} => {{b.price}}
-            </li>
-        </ul>
-
-        <!-- Filter by function -->
-        <h4>Filter by Function</h4>
-        <ul>
-            <li ng-repeat="b in books | filter: filterBook | orderBy: 'price'">
-                {{b.name}} => {{b.price}}
             </li>
         </ul>
 
@@ -117,7 +96,7 @@
             </li>
         </ul>
 
-        <h4>Order by Name</h4>
+        <h3>ng-repeat | orderBy: 'Name'</h3>
         <ol>
             <li ng-repeat="name in names">
                 {{name.Name}} => {{name.Country}}
@@ -130,20 +109,13 @@
             </tr>
         </table>
 
-        <h4>| limitTo:2</h4>
+        <h3>ng-repeat | limitTo:2</h3>
         <table>
             <tr ng-repeat="b in books| limitTo: 2">
                 <td>{{b.name}}</td>
                 <td>{{b.price}}</td>
             </tr>
         </table>
-
-        <h4>| number</h4>
-        <p>{{75923|number}}</p>
-
-        <h4>| json</h4>
-        <p>Object: {{master}}</p>
-        <p>JSON: {{master|json}}</p>
 
         <!-- ng-disabled -->
         <h4>ng-disabled</h4>
@@ -344,141 +316,7 @@
     </div>
 
     <script>
-        // Create new module
-        var testModule = angular.module('testModule', []);
 
-        // Use existing module
-        //var testModule = angular.module('testModule');
-
-        // Create controller under a new module.
-        testModule.controller('personController', function($scope, $http, $timeout, $interval) {
-            $scope.value1 = 777;
-            $scope.value2 = " Go";
-
-            $scope.plus = function(a, b) {
-                return a + b;
-            };
-
-            $scope.books = [{
-                name: "Hadoop",
-                price: 58.5
-            }, {
-                name: "Spark",
-                price: 97
-            }, {
-                name: "Hbase",
-                price: 78
-            }, {
-                name: "Storm",
-                price: 88
-            }];
-
-            $scope.filterBook = function(item) {
-                if(item['price']>78) {
-                    return true;
-                } else {
-                    return false;
-                }
-            };
-
-            $http.get('json/Customers.json').success(function(response){
-                console.info('json/Customers.json ', response);
-
-                $scope.names = response;
-            });
-
-            $scope.addName = function(evt) {
-                $scope.name = $scope.name + "!";
-            };
-
-            // angular.copy
-            $scope.master = {name: 'Hunter', age: 32};
-            $scope.reset = function() {
-                $scope.user = angular.copy($scope.master);
-            };
-
-            $scope.reset();
-
-            //
-            $scope.student = {};
-
-            $scope.dateX = new Date();
-
-            $scope.html = '<span color="red">RED</span>';
-
-            // ng-switch
-            $scope.switch=2;
-
-            // ng-if, remove the DOM
-            $scope.if = true;
-            $scope.if2 = false;
-
-            // $watch(), $digest(), $apply()
-            $scope.timeX = new Date();
-            $scope.updateTime = function() {
-                $scope.timeX = new Date();
-            };
-
-            document.getElementById('buttonUpdateTime').addEventListener('click', function(evt){
-                console.info("Native Click Event");
-
-                // It will not trigger the $watch automatically
-                $scope.timeX = new Date();
-
-                // Must do this to allow update automatically.
-                $scope.$digest();
-
-                // Or you can do following, $apply => $digest automatically
-                $scope.$apply(function() {
-                    $scope.timeX = new Date();
-                });
-            });
-
-            // Form - Select
-            $scope.selectX = "game";
-
-            // Form - ng-options
-            $scope.classmates = [{name: "Jia Li", id: "yunjiali", value: "yunjiali"}, {name: "Guang Qun", id: "liguangqun", value: "liguangqun"}, {name: "Wei Wei", id: "linweiwei", value: "linweiwei"}];
-            $scope.selectY = "liguangqun";
-
-            // Form - ng-class
-            $scope.getNgPatternClass = function() {
-                return $scope.myForm.ngpattern.$valid;
-            };
-
-            $scope.getNgPatternInvalid = function() {
-                return $scope.myForm.ngpattern.$invalid?"invalid":"";
-            }
-
-            // Form - ng-submit
-            $scope.myForm2_name = "hunter";
-            $scope.myForm2_submit = function() {
-                console.info("$scope.myForm2.submit()", $scope.myForm2.name);
-            };
-
-            // $timeout
-            $timeout(function(){$scope.time3 = new Date();}, 3000, true/*if the function is called within $scope.$apply()*/);
-
-            // $interval
-            $interval(function(){$scope.time4 = new Date();}, 1000, 0/*count*/, true/*if the function is called within $scope.$apply()*/);
-        });
-
-        // Customized filter
-        testModule.filter('myFilter', function(){
-            return function(items, start, end) {
-                console.info("myFilter, ", items);
-
-                var result = [];
-                for(var i in items) {
-                    if(i>=start && i<end) {
-                        var item = items[i];
-                        result.push(item);
-                    }
-                }
-
-                return result;
-            }
-        });
     </script>
 </body>
 </html>
