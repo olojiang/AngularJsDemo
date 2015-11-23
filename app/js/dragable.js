@@ -56,7 +56,9 @@ myModule.directive("myDragable", ['$document', function ($document) {
 
         // When element destroyed, clear memory, etc
         element.on('$destroy', function () {
-
+            $document.off('mousedown');
+            $document.off('mouseup');
+            $document.off('mousemove');
         });
     };
 

@@ -64,17 +64,6 @@ myModule.directive("tab", [function () {
 
     directive.link = function (scope, element, attrs, controllers) {
         // link(), scope to element for data binding, it has scope and its values, manipulate DOM
-        var controller = controllers[0];
-
-
-        // When element destroyed, clear memory, etc
-        element.on('$destroy', function () {
-
-        });
-    };
-
-    directive.link = function (scope, element, attrs, controllers) {
-        // link(), scope to element for data binding, it has scope and its values, manipulate DOM
         var myTabs = controllers[0];
         myTabs.addPane(scope);
     };
