@@ -20,6 +20,7 @@
     <!-- ng-controller -->
     <!-- init with value, oibject, array -->
     <div ng-app="testModule" ng-init="name='JiWei';a=7;b=8;obj={name:'Hunter', age:32};points=[2,5,1,7]" ng-controller="personController">
+        <h1>Basic binding</h1>
         <!-- ng-model -->
         <h3>ng-model</h3>
         <input name="input" type="input" ng-model="name" />
@@ -32,6 +33,8 @@
         User: <span ng-bind="obj.name+ '-'+ obj.age"></span><br />
         array[3]: <span ng-bind="points[3]"></span> <br />
 
+        <div ng-bind="html"></div>
+
         <!-- expression -->
         <h3>Expression</h3>
         Your input is: {{name}}<br />
@@ -43,103 +46,31 @@
         User: {{obj.name + '-' + obj.age}} <br />
         array[3]: {{points[3]}} <br />
 
-        <!-- ng-repeat -->
-        <h3>ng-repeat, Array</h3>
-        <div>
-            <span ng-repeat="p in points">
-                <span ng-bind="p"></span>
-                 - {{p}}
-            </span>
-        </div>
-
-        <!-- ng-repeat, Array -->
-        <h3>ng-repeat, Array of object</h3>
-        <ul>
-            <li ng-repeat="b in books">
-                <span>$index:{{$index}}, {{b.name + "=>" + b.price}}</span>
-                <span>$first:{{$first}}, $middle: {{$middle}}, $last:{{$last}}</span>
-            </li>
-        </ul>
-
-        <!-- ng-repeat, Object -->
-        <h3>ng-repeat, object</h3>
-        <ol>
-            <li ng-repeat="(key, value) in master">
-                {{key}} -> {{value}}
-            </li>
-        </ol>
-
-        <!-- ng-repeat-start, ng-repeat-end -->
-        <h3>ng-repeat-start, ng-repeat-end, object</h3>
-        <ul>
-            <li ng-repeat-start="(key, value) in master">
-                {{key}}
-            </li>
-            <li ng-repeat-end>
-                {{value}}
-            </li>
-        </ul>
-
-        <!-- Filter assign to Variable -->
-        <h4>Filter result Assign</h4>
-        <ol>
-            <li ng-repeat="b in books2 = (books | filter: filterBook)">
-                {{b.name}} - {{b.price}}
-            </li>
-        </ol>
-        <p>books2.length = {{books2.length}}</p>
-
-        <h4>Customized Filter</h4>
-        <ul>
-            <li ng-repeat="b in (books | myFilter: 0:2)">
-                {{b.name}} => {{b.price}}
-            </li>
-        </ul>
-
-        <h3>ng-repeat | orderBy: 'Name'</h3>
-        <ol>
-            <li ng-repeat="name in names">
-                {{name.Name}} => {{name.Country}}
-            </li>
-        </ol>
-        <table>
-            <tr ng-repeat="name in names | orderBy: 'Name'">
-                <td>{{name.Name}}</td>
-                <td>{{name.Country|uppercase}}</td>
-            </tr>
-        </table>
-
-        <h3>ng-repeat | limitTo:2</h3>
-        <table>
-            <tr ng-repeat="b in books| limitTo: 2">
-                <td>{{b.name}}</td>
-                <td>{{b.price}}</td>
-            </tr>
-        </table>
-
+        <h1>Disable, Enable</h1>
         <!-- ng-disabled -->
-        <h4>ng-disabled</h4>
+        <h3>ng-disabled</h3>
         Disabled checkbox <input type="checkbox" ng-disabled="switch" />
         Click to enable and disable: <input type="checkbox" ng-model="switch" /> <br />
 
         <!-- ng-show -->
-        <h4>ng-show</h4>
+        <h3>ng-show, set display style</h3>
         <p ng-show="show">Show me</p>
         Click to show or hide: <input type="checkbox" ng-model="show" /> <br />
 
+        <h1>Show, Hide, if</h1>
         <!-- ng-hide -->
-        <h4>ng-hide</h4>
+        <h3>ng-hide, set display style</h3>
         <p ng-hide="hide">Hide me</p>
         Click to show or hide2: <input type="checkbox" ng-model="hide" /> <br />
 
-        <!-- ng-click -->
-        <h4>ng-click</h4>
-        <p>
-        <input type="button" ng-click="addName()" value="Add ! for name" />
-        </p>
+        <!-- ng-if -->
+        <h3>ng-if, remove from the whole DOM tree</h3>
+        <div ng-if="if">If content</div>
+        <div ng-if="if2">If2 content</div>
 
         <!-- form -->
-        <h4>form</h4>
+        <h1>Form</h1>
+        <h3>form</h3>
         <form novalidate>
             <input type="text" ng-model="user.name" />
             <input type="text" ng-model="user.age" />
@@ -147,7 +78,7 @@
             <p>{{user}}</p><p>{{master}}</p>
         </form>
 
-        <h4>form - check box</h4>
+        <h3>form - check box</h3>
         <form novalidate>
             <p>
                 Check it: <input type="checkbox" ng-model="check1" />
@@ -155,7 +86,7 @@
             </p>
         </form>
 
-        <h4>form -radio button</h4>
+        <h3>form -radio button</h3>
         <form novalidate>
             <p>
                 Radio1: <input type="radio" name="radio1" value="Radio 1" ng-model="radioX" />
@@ -164,7 +95,7 @@
             {{radioX}}
         </form>
 
-        <h4>form -select</h4>
+        <h3>form -select</h3>
         <form novalidate>
             <select ng-model="selectX">
                 <option value="book">Book</option>
@@ -179,7 +110,7 @@
             <p>dataSource Expression => for obj in optionArray</p>
             <p>optionBinding Expression => keyfield as valuefield(example: obj.id as obj.name)</p>
             {{selectY}}
-            <select ng-model="selectY"
+            <select ng-model="selectX"
                     ng-options="obj.id as obj.name for obj in classmates">
             </select>
 
@@ -190,12 +121,23 @@
             </select>
 
             , {{selectY}}
-            <select ng-model="selectY"
+            <select ng-model="selectZ"
                     ng-options="obj.value as obj.name for obj in classmates"
-                    multiple="true">
+                    multiple>
                 <option value="">Please choose a name</option>
             </select>
+            
+            <label>
+                Option Select: 
+                <select ng-model="user.selectZ" 
+                    name="selectZ" 
+                    ng-options="option.label for option in repeatList track by option.id"
+                    required>
+                    <option value="">---Please select---</option>
+                </select>
+            </label>
         </form>
+        
 
         <!-- form validation -->
         <!-- form noinvalid, name is required-->
@@ -205,7 +147,7 @@
         <!-- use form.fieldname.$error.required -->
         <!-- use form.fieldname.$invalid -->
         <!-- use form.fieldname.$dirty -->
-        <h4>form validation</h4>
+        <h3>form validation</h3>
         <form novalidate name="myForm">
             <input type="text" name="student_name" ng-model="student.name" required>
             <span ng-show="myForm.student_name.$error.required">Name is required</span> <br />
@@ -238,8 +180,14 @@
             </p>
         </form>
 
+        <!-- ng-click -->
+        <h3>ng-click</h3>
+        <p>
+            <input type="button" ng-click="addName()" value="Add ! for name" />
+        </p>
+
         <!-- ng-submit -->
-        <h4>ng-submit</h4>
+        <h3>ng-submit</h3>
         <form name="myForm2" ng-submit="myForm2_submit()" novalidate>
             <input type="text" name="name" ng-model="myForm2_name" ng-required="true" ng-pattern="/^\d+$/"/>
             <input type="submit" value="Submit" />
@@ -250,56 +198,39 @@
             <p>$dirty: {{myForm2.name.$dirty}}</p>
         </form>
 
+        <h1>Include</h1>
         <!-- ng-include-->
-        <h4>ng-include</h4>
+        <h3>ng-include</h3>
         <!-- pay attention to the single quote -->
         <p>
-            <div ng-include="'include1.html'"></div>
+            <span ng-include="'includeContent/include1.html'"></span>
         </p>
         <p>
-            <span ng-include="'include2.html'"></span>
+            <span ng-include="'includeContent/include2.html'"></span>
         </p>
 
-        <h4>i18n</h4>
-        <h5>date</h5>
-        <p>Local related(i18n): {{dateX | date}}</p>
-        <p>Local related(i18n) yyyy-MM-dd HH:mm:ss: {{dateX | date: 'yyyy-MM-dd HH:mm:ss'}}</p>
-        <p>Local related(i18n) medium: {{dateX | date: 'medium'}}</p>
-        <p>Local related(i18n) short: {{dateX | date: 'short'}}</p>
-        <p>Local related(i18n) fullDate: {{dateX | date: 'fullDate'}}</p>
-        <p>Local related(i18n) mediumDate: {{dateX | date: 'mediumDate'}}</p>
-        <p>Local related(i18n) shortDate: {{dateX | date: 'shortDate'}}</p>
-        <p>Local related(i18n) longDate: {{dateX | date: 'longDate'}}</p>
-        <p>Local related(i18n) shortTime: {{dateX | date: 'shortTime'}}</p>
-        <p>Local related(i18n) mediumTime: {{dateX | date: 'mediumTime'}}</p>
-
-        <h5>currency</h5>
-        <p>Local related(i18n): {{18 | currency}}</p>
-        <p>Local related(i18n) '$': {{18 | currency: '$'}}</p>
-
-        <h5>number</h5>
-        <p>Local related(i18n): {{18234 | number}}</p>
-
-        <h4>ng-bind</h4>
-        <div ng-bind="html"></div>
-
+        <h1>Switch</h1>
         <!-- ng-switch -->
         <!-- ng-switch-when -->
         <!-- ng-switch-default -->
-        <h4>ng-switch</h4>
-        <div ng-switch="switch">
+        <h3>ng-switch</h3>
+        <label>
+            Select By Switch: 
+            <select ng-model="user.switch" name="switch" required>
+                <option value="">---Please select---</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+        </label>
+        <div ng-switch="user.switch">
             <div ng-switch-when="1">Switch 1</div>
             <div ng-switch-when="2">Switch 2</div>
             <div ng-switch-default>Switch Default</div>
         </div>
 
-        <!-- ng-if -->
-        <h4>ng-if</h4>
-        <div ng-if="if">If content</div>
-        <div ng-if="if2">If2 content</div>
-
         <!-- $watch(), $digest(), $apply() -->
-        <h4>$watch()</h4>
+        <h3>$watch()</h3>
         <div>
             <input type="button" ng-click="updateTime()" value="Update Time(ng-click)" />
             <input type="button" id="buttonUpdateTime" value="Update Time(normal button)" />
@@ -307,11 +238,11 @@
         <p>{{timeX}}</p>
 
         <!-- $timeout-->
-        <h4>$timeout</h4>
+        <h3>$timeout</h3>
         <p>{{time3}}</p>
 
         <!-- $inerval -->
-        <h4>$interval</h4>
+        <h3>$interval</h3>
         <p>{{time4}}</p>
     </div>
 

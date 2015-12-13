@@ -54,8 +54,6 @@ testModule.controller('personController', function($scope, $http, $timeout, $int
     //
     $scope.student = {};
 
-    $scope.dateX = new Date();
-
     $scope.html = '<span color="red">RED</span>';
 
     // ng-switch
@@ -86,6 +84,14 @@ testModule.controller('personController', function($scope, $http, $timeout, $int
         });
     });
 
+    $scope.repeatList = [{
+        label: "Ji Wei", id: '1'
+    }, {
+        label: "Yun Jia Li", id: '2'
+    }, {
+        label: "Li Guang Qun", id: '3'
+    }];
+
     // Form - Select
     $scope.selectX = "game";
 
@@ -107,6 +113,9 @@ testModule.controller('personController', function($scope, $http, $timeout, $int
     $scope.myForm2_submit = function() {
         console.info("$scope.myForm2.submit()", $scope.myForm2.name);
     };
+
+    // ng-switch
+    $scope.user = {switch: '1'};
 
     // $timeout
     $timeout(function(){$scope.time3 = new Date();}, 3000, true/*if the function is called within $scope.$apply()*/);

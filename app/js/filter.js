@@ -9,6 +9,42 @@ myModule.controller("myController", ['$scope', function ($scope) {
 
     $scope.msg1 = 'angular';
     $scope.msg2 = 'Ji Wei';
+
+    $scope.name = "Yun Jia Li";
+
+    $scope.books = [{
+        name: "Hadoop",
+        price: 58.5
+    }, {
+        name: "Spark",
+        price: 97
+    }, {
+        name: "Hbase",
+        price: 78
+    }, {
+        name: "Storm",
+        price: 88
+    }];
+
+    $scope.names = [{
+        name: "Kevin",
+        country: "US"
+    }, {
+        name: "Yun Jia Li",
+        country: "China"
+    }, {
+        name: "Kim",
+        country: "Korea"
+    }];
+
+    // filter ng-repeat items
+    $scope.filterBook = function (item) {
+        return item['price'] > 77; // boolean expression
+    };
+
+    $scope.master = {name: 'Hunter', age: 32};
+
+    $scope.dateX = new Date();
 }]);
 
 /*
@@ -30,5 +66,22 @@ myModule.filter('hello', function () {
 myModule.filter('hello2', function () {
     return function (data, param1, param2) {
         return 'Data='+data + ', param1=' + param1 + ', param2=' + param2;
+    }
+});
+
+// Customized filter
+myModule.filter('myFilter', function(){
+    return function(items, start, end) {
+        console.info("myFilter, ", items);
+
+        var result = [];
+        for(var i in items) {
+            if(i>=start && i<end) {
+                var item = items[i];
+                result.push(item);
+            }
+        }
+
+        return result;
     }
 });

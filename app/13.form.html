@@ -48,6 +48,17 @@
                 <div ng-show="form.name.$error.required" class="fieldError">Name is required field.</div>
             </div>
 
+            <h3>ng-pattern, Input</h3>
+
+            <div class="field">
+                <label>Age: <input type="text" ng-model="user.age" name="age" ng-pattern="/^\d+$/" /></label>
+            </div>
+            <div ng-show="form.$submitted || form.age.$touched">
+                <div ng-show="form.age.$error.pattern" class="fieldError">
+                    Must be number
+                </div>
+            </div>
+
             <h3>Required, textarea</h3>
             <div>
                 <label>Description: <textarea cols="40" rows="10" ng-model="user.desc" name="desc" ng-trim="true" ng-maxlength="100" ng-minlength="5" ng-pattern="/^com.*/" required ></textarea></label>

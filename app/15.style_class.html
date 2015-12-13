@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="UTF-8">
+    <title>ng-class && ng-style</title>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="js/style_class.js"></script>
+    <style type="text/css">
+        .red {
+            color: red;
+        }
+        .bold {
+            font-weight: bold;
+        }
+        .strike {
+            text-decoration: line-through;
+        }
+        .border {
+            padding: 5px;
+            border: 1px solid gray;
+        }
+        .mt10 {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body ng-app="myModule">
+    <div id="main" ng-controller="myController">
+        <h3>Style</h3>
+        <div class="styleDemo" ng-style="{backgroundColor: 'gray', color: 'white', fontSize: '17px', padding: '10px'}">
+            Style from ng-style, directly
+        </div>
+
+        <div class="styleDemo" ng-style="styleObjInScope">
+            Style from ng-style, scope, object
+        </div>
+
+        <h3>Class</h3>
+        <h4>ng-class</h4>
+        <div ng-class="classObjectInScope">
+            1. String - variable name, variable value can be space separated class name
+        </div>
+
+        <div class="mt10" ng-class="{red: user.isRed, bold: user.isBold, strike: user.isStrike}">
+            2. Object - when value is true, the key is used as class name
+        </div>
+
+        <div class="select Class">
+            <label><input type="checkbox" ng-model="user.isRed" name="isRed" required /> isRed</label>
+            <label><input type="checkbox" ng-model="user.isBold" name="isBold" required /> isBold</label>
+            <label><input type="checkbox" ng-model="user.isStrike" name="isStrike" required /> isStrike</label>
+        </div>
+
+        <div class="mt10" ng-class="[classObjectInScope2, {bold: user.isBold, strike: user.isStrike}]">
+            3, array to mix 1 and 2, mrege them together
+        </div>
+    </div>
+</body>
+</html>
