@@ -13,8 +13,11 @@
 * app\08.scope_directive.html
 * app\09.tabs_directive.html
 * app\10.dragable_directive.html
-* app\11.filter.html
+* app\11.filter_repeat.html
 * app\12.event_propagation.html
 * app\13.form.html
 * app\14.modal.html
 * app\15.style_class.html
+
+### Refer to my Blog for those examples
+[Angular.js Play](http://www.olojiang.com/jiwei/list?tag=Angular.js&sort=title&direction=up&page=1)
