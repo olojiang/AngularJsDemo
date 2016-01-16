@@ -5,7 +5,7 @@
     border: 1px solid green;
 }
 .fieldError {
-    color: blue;
+    color: red;
     padding-left: 10px;
 }
 .fieldPending {
