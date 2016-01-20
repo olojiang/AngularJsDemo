@@ -3,6 +3,11 @@
  */
 var myModule = angular.module('myModule', []);
 myModule.controller("myController", ['$scope', function ($scope) {
+    /*
+     * Table related data
+     * - Some of the column can be selected
+     * - keys column can not be selected
+     */
     $scope.dataList = [
         {value: 'SanjoseWeather', name: 'Sanjose Weather'},
         {value: 'BostonWeather', name: 'Boston Weather'},
@@ -15,14 +20,6 @@ myModule.controller("myController", ['$scope', function ($scope) {
 
     var keys = $scope.keys = ['station_id', "display_location.full"];
 
-    $scope.selected = {
-        keys: {
-            station_id: 'KMABOSTO100',
-            "display_location.full": "Champaign, IL"
-        },
-        column: 'temp_f'
-    } || {};
-
     $scope.tableData = [
         ["KMABOSTO198", "Boston, MA", "Partly Cloudy", 19.4, -7, "47%"],
         ["KMABOSTO100", "Champaign, IL", "Sunny", 34, 2, "47%"],
@@ -32,6 +29,18 @@ myModule.controller("myController", ['$scope', function ($scope) {
         ["KMABOSTO104", "Orchard Park, NY", "Rainy", 70, 21, "85%"],
         ["KMABOSTO105", "Rossville, GA", "Snow", 82, 28, "75%"]
     ];
+
+    /*
+     * Initial selection
+     */
+    $scope.selected = {
+            keys: {
+                station_id: 'KMABOSTO100',
+                "display_location.full": "Champaign, IL"
+            },
+            column: 'temp_f',
+            columnType: 'number'
+        } || {};
 
     var i, len, key;
     $scope.keyIndex = [];
@@ -160,6 +169,7 @@ myModule.controller("myController", ['$scope', function ($scope) {
         }
 
         $scope.selected.column = tableHeader[columnIndex];
+        $scope.selected.columnType = rowData[columnIndex].replace?'string':'number';
     };
 
     $scope.getResult = function() {
@@ -193,11 +203,12 @@ myModule.controller("myController", ['$scope', function ($scope) {
         var column = $scope.selected.column;
         var columnWithSchema = schema+"."+column;
         str2 = columnWithSchema + ", " + str1;
-        str1 += " AND " + columnWithSchema;
+        var str3 = columnWithSchema + ' ('+ str1 +')';
 
         return angular.extend( $scope.selected||{}, {
             stringFormat1: str1,
             stringFormat2: str2,
+            stringFormat3: str3,
             schema: schema,
             columnWithSchema: columnWithSchema
         }) ;

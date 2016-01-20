@@ -14,7 +14,7 @@
         }
 
         .isKey {
-            background-color: #efefef;
+            background-color: rgba(239, 239, 239, 0.5);
         }
 
         .isSelectable {
@@ -26,11 +26,21 @@
         }
 
         .isSelectedRow {
-            background-color: #f8f8f8;
+            background-color: #f8f8a8;
         }
 
-        .tableFilter, .dataCategory, .dataSelectTable {
+        .tableFilter, .dataCategory, .dataSelectTable, .selection {
             padding: 10px 10px;
+        }
+
+        .tableFilter {
+            padding-bottom: 0;
+        }
+
+        .selectedField {
+            display: inline-block;
+            padding: 5px 10px;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -48,6 +58,14 @@
         </div>
 
         <div class="tableSection" ng-show="data">
+            <!-- Table select result -->
+            <div class="selection" ng-show="getResult().stringFormat3">
+                Selected: <span class="selectedField">
+                    {{getResult().columnWithSchema}}
+                </span> <br/>
+                ({{getResult().stringFormat1}})
+            </div>
+
             <!-- Table data filter -->
             <div class="tableFilter">
                 <label>Filter: <input type="text" ng-model="external.tableFilter" name="tableFilter" required /></label>
@@ -73,14 +91,14 @@
                     </tbody>
                 </table>
             </div>
-        </div>
 
-        <!-- Result -->
-        <div class="result">
-            {{data | json}}
-        </div>
-        <div class="result2">
-            {{getResult()}}
+            <!-- Result -->
+            <div class="result">
+                {{data | json}}
+            </div>
+            <div class="result2">
+                {{getResult()}}
+            </div>
         </div>
     </div>
 </body>
