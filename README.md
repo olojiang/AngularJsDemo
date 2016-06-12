@@ -2,22 +2,22 @@
 
 ### Different practice
 
-* app\00.start_basic.html
-* app\01.value_constant.html
-* app\02.service.html
-* app\03.factory.html
-* app\04.provider.html
-* app\05.scope_basic.html
-* app\06.scope_hierarchy.html
-* app\07.directive.html
-* app\08.scope_directive.html
-* app\09.tabs_directive.html
-* app\10.dragable_directive.html
-* app\11.filter_repeat.html
-* app\12.event_propagation.html
-* app\13.form.html
-* app\14.modal.html
-* app\15.style_class.html
+* view\00.start_basic.html
+* view\01.value_constant.html
+* view\02.service.html
+* view\03.factory.html
+* view\04.provider.html
+* view\05.scope_basic.html
+* view\06.scope_hierarchy.html
+* view\07.directive.html
+* view\08.scope_directive.html
+* view\09.tabs_directive.html
+* view\10.dragable_directive.html
+* view\11.filter_repeat.html
+* view\12.event_propagation.html
+* view\13.form.html
+* view\14.modal.html
+* view\15.style_class.html
 
 ### Refer to my Blog for those examples
 [Angular.js Play](http://www.olojiang.com/jiwei/list?tag=Angular.js&sort=title&direction=up&page=1)
