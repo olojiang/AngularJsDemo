@@ -303,10 +303,10 @@
         $log.warn("Cookie '" + name +
           "' possibly not set or overflowed because it was too large (" +
           cookieLength + " > 4096 bytes)!");
-      }
+    }
 
       return str;
-    }
+  }
 
     return function (name, value, options) {
       rawDocument.cookie = buildCookieString(name, value, options);

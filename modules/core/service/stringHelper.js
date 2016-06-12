@@ -5,7 +5,7 @@ var coreModule = angular.module('coreModule');
 
 // Provide more for native String
 String.prototype.paddingLeft = function (paddingValue) {
-  return String(paddingValue + this).slice(-paddingValue.length);
+    return String(paddingValue + this).slice(-paddingValue.length);
 };
 
 // String format() based on {0}, {1}

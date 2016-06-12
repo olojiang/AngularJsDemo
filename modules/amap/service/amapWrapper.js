@@ -96,7 +96,7 @@ mapModule.service('AmapWrapper', ['$window', 'AmapHelper', function ($window, Am
 
     for (j = 0, lenJ = newMarkers.length; j < lenJ; j++) {
       marker = newMarkers[j];
-      marker.Location = AmapHelper.string2Arr(marker.Location);
+        marker.Location = AmapHelper.string2Arr(marker.Location);
 
       var k, lenK, existMarker;
       var find = false;
@@ -104,7 +104,7 @@ mapModule.service('AmapWrapper', ['$window', 'AmapHelper', function ($window, Am
         existMarker = existingMarkers[k];
 
         // Note: only judge the location, NOT judge the name, because it may be more complex, but useless
-        if (JSON.stringify(existMarker.Location) === JSON.stringify(marker.Location) && existMarker.Name === marker.Name) {
+          if (JSON.stringify(existMarker.Location) === JSON.stringify(marker.Location) && existMarker.Name === marker.Name) {
           // Find existing marker the same as new markers, do not need to create new marker any more
           existMarkerIndex[k] = true;
 
@@ -126,14 +126,14 @@ mapModule.service('AmapWrapper', ['$window', 'AmapHelper', function ($window, Am
       var markerObj = {};
 
       label = drawMarkers[i];
-      arr = label.Location;
+        arr = label.Location;
 
-      var content = "<div class='point'>" + label.Name + "</div>";
+        var content = "<div class='point'>" + label.Name + "</div>";
 
       // Marker icon, with hover tooltip
       marker = new AMap.Marker({
         position: arr,
-        title: label.Name
+          title: label.Name
       });
       marker.setMap(map);
 
@@ -148,7 +148,7 @@ mapModule.service('AmapWrapper', ['$window', 'AmapHelper', function ($window, Am
 
       marker.setMap(map);
 
-      markerObj.Label = marker;
+        markerObj.Label = marker;
       angular.extend(markerObj, label);
 
       // Add the markerObject to map, for update case
@@ -165,7 +165,7 @@ mapModule.service('AmapWrapper', ['$window', 'AmapHelper', function ($window, Am
         marker = markers[i];
         var mark = marker.pose;
         mark.setMap();
-        mark = marker.Label;
+          mark = marker.Label;
         mark.setMap();
 
         // remove from marker list

@@ -48,11 +48,11 @@ var opts = {
 // Gulp task definitions
 // ----------------------------
 
-gulp.task('default', function () {
+gulp.task('default', function() {
   runSequence('createCSS', 'addHeader');
 });
 
-gulp.task('createCSS', function () {
+gulp.task('createCSS', function() {
   return gulp.src(activatedAnimations)
     .pipe(concat(opts.concatName))
     .pipe(postcss([
@@ -67,7 +67,7 @@ gulp.task('createCSS', function () {
     .pipe(gulp.dest(opts.destPath));
 });
 
-gulp.task('addHeader', function () {
+gulp.task('addHeader', function() {
   return gulp.src('*.css')
     .pipe(header(opts.banner, pkg))
     .pipe(gulp.dest(opts.destPath));
@@ -81,7 +81,7 @@ gulp.task('addHeader', function () {
 function activateAnimations() {
   var categories = JSON.parse(fs.readFileSync('animate-config.json')),
     category, files, file,
-    target = ['source/_base.css'],
+    target = [ 'source/_base.css' ],
     count = 0;
 
   for (category in categories) {

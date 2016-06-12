@@ -7,18 +7,18 @@ var myModule = angular.module('myModule', ['mapModule']);
 
 myModule.controller("myController", ['$scope', function ($scope) {
   $scope.data = {
-    "Label": [
+      "Label": [
       {
-        "Name": "地点1xxx",
-        "Location": "116.36,40.03"
+          "Name": "地点1xxx",
+          "Location": "116.36,40.03"
       },
       {
-        "Name": "地点2",
-        "Location": "116.40,40.04"
+          "Name": "地点2",
+          "Location": "116.40,40.04"
       },
       {
-        "Name": "地点3",
-        "Location": "116.36,40.04"
+          "Name": "地点3",
+          "Location": "116.36,40.04"
       }
     ],
     "Polyline": [

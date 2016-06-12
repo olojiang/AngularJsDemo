@@ -27,9 +27,7 @@
   "jspm": {
     "shim": {
       "angular-mocks": {
-        "deps": [
-          "angular"
-        ]
+        "deps": ["angular"]
       }
     }
   }

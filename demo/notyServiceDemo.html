@@ -1,52 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width">
-  <meta charset="UTF-8">
-  <title>Demo notyService Directive</title>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="UTF-8">
+    <title>Demo notyService Directive</title>
 
-  <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css"/>
-  <link rel="stylesheet" href="../vendor/animate.css/animate.min.css"/>
+    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="../vendor/animate.css/animate.min.css"/>
 
-  <link rel="stylesheet" href="../css/notyService.css"/>
+    <link rel="stylesheet" href="../css/notyService.css"/>
 
-  <script src="../vendor/angular/angular.js"></script>
+    <script src="../vendor/angular/angular.js"></script>
 
-  <!-- Dependencies -->
-  <script src="../vendor/jquery/dist/jquery.min.js"></script>
-  <script src="../vendor/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
-  <script src="../vendor/underscore/underscore-min.js"></script>
+    <!-- Dependencies -->
+    <script src="../vendor/jquery/dist/jquery.min.js"></script>
+    <script src="../vendor/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+    <script src="../vendor/underscore/underscore-min.js"></script>
 
-  <style type="text/css">
-    .buttons {
-      padding: 20px;
-    }
-  </style>
+    <style type="text/css">
+        .buttons {
+            padding: 20px;
+        }
+    </style>
 </head>
 <body ng-app="coreModule">
 <div id="main" ng-controller="myController">
 
-  <!-- Div for different buttons -->
-  <div class="buttons">
-    <h1>This will show how to use the Noty Service</h1>
+    <!-- Div for different buttons -->
+    <div class="buttons">
+        <h1>This will show how to use the Noty Service</h1>
 
-    <p><label>Timeout: <input type="text" ng-model="config.timeout" name="timeout" required/> ms</label></p>
-    <p>All following method has 2nd parameter as timeout; timeout empty means it will not timeout;</p>
-    <button class="btn btn-default" ng-click="showInfo($event)">Show Info</button>
-    <button class="btn btn-default" ng-click="showWarning($event)">Show Warning</button>
-    <button class="btn btn-default" ng-click="showError($event)">Show Error</button>
-    <button class="btn btn-default" ng-click="showSuccess($event)">Show Success</button>
-    <button class="btn btn-default" ng-click="showConfirm($event)">Reset timeout to 3 seconds?</button>
+        <p><label>Timeout: <input type="text" ng-model="config.timeout" name="timeout" required/> ms</label></p>
+        <p>All following method has 2nd parameter as timeout; timeout empty means it will not timeout;</p>
+        <button class="btn btn-default" ng-click="showInfo($event)">Show Info</button>
+        <button class="btn btn-default" ng-click="showWarning($event)">Show Warning</button>
+        <button class="btn btn-default" ng-click="showError($event)">Show Error</button>
+        <button class="btn btn-default" ng-click="showSuccess($event)">Show Success</button>
+        <button class="btn btn-default" ng-click="showConfirm($event)">Reset timeout to 3 seconds?</button>
 
-    <div>{{config || json}}</div>
-  </div>
+        <div>{{config || json}}</div>
+    </div>
 
 
-  <!-- Demo Controller and module -->
-  <script src="../modules/core/controller/notyServiceDemo.js"></script>
+    <!-- Demo Controller and module -->
+    <script src="../modules/core/controller/notyServiceDemo.js"></script>
 
-  <!-- Service -->
-  <script src="../modules/core/service/notyService.js"></script>
+    <!-- Service -->
+    <script src="../modules/core/service/notyService.js"></script>
 </div>
 </body>
 </html>

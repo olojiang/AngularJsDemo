@@ -12,69 +12,67 @@
 var coreModule = angular.module('coreModule');
 
 coreModule.service("notyService", function ($window) {
-  function show(noty, _, type, obj, timeout) {
-    console.info("* [Noty] " + type, ", msg:", obj, ", timeout:", timeout);
-    var options = {
-      text: obj.replace && obj.substring ? obj : (JSON.stringify(obj, null, 2).replace(/\n/g, '<br/>').replace(/ /g, '&nbsp;')),
-      layout: 'topCenter',
-      animation: {
-        open: 'animated bounceInLeft', // jQuery animate function property object
-        close: 'animated bounceOutRight', // jQuery animate function property object
-        easing: 'swing', // easing
-        speed: 500 // opening & closing animation speed
-      },
-      type: type, // alert, warning, error, success, information
-      maxVisible: 15
+    function show(noty, _, type, obj, timeout) {
+        console.info("* [Noty] " + type, ", msg:", obj, ", timeout:", timeout);
+        var options = {
+            text: obj.replace && obj.substring ? obj : (JSON.stringify(obj, null, 2).replace(/\n/g, '<br/>').replace(/ /g, '&nbsp;')),
+            layout: 'topCenter',
+            animation: {
+                open: 'animated bounceInLeft', // jQuery animate function property object
+                close: 'animated bounceOutRight', // jQuery animate function property object
+                easing: 'swing', // easing
+                speed: 500 // opening & closing animation speed
+            },
+            type: type, // alert, warning, error, success, information
+            maxVisible: 15
+        };
+
+        if(timeout) {
+            _.extend(options, {timeout: timeout});
+        }
+        noty(options);
+    }
+
+    var noty = $window.noty;
+    var _ = $window._;
+
+    this.showError = function showError(obj, timeout) {
+        show(noty, _, 'error', obj, timeout);
     };
 
-    if (timeout) {
-      _.extend(options, {timeout: timeout});
-    }
-    noty(options);
-  }
+    this.showInfo = function showInfo(obj, timeout) {
+        show(noty, _, 'information', obj, timeout);
+    };
 
-  var noty = $window.noty;
-  var _ = $window._;
+    this.showWarning = function showWarning(obj, timeout) {
+        show(noty, _, 'warning', obj, timeout);
+    };
 
-  this.showError = function showError(obj, timeout) {
-    show(noty, _, 'error', obj, timeout);
-  };
+    this.showSuccess = function showSuccess(obj, timeout) {
+        show(noty, _, 'success', obj, timeout);
+    };
 
-  this.showInfo = function showInfo(obj, timeout) {
-    show(noty, _, 'information', obj, timeout);
-  };
+    this.showConfirm = function showConfirm(text, callback) {
+        noty({
+            text: text,
+            buttons: [
+                {addClass: 'btn btn-primary', text: 'Ok', onClick: function($noty) {
 
-  this.showWarning = function showWarning(obj, timeout) {
-    show(noty, _, 'warning', obj, timeout);
-  };
+                    // this = button element
+                    // $noty = $noty element
 
-  this.showSuccess = function showSuccess(obj, timeout) {
-    show(noty, _, 'success', obj, timeout);
-  };
+                    $noty.close();
+                    // noty({text: 'You clicked "Ok" button', type: 'success'});
 
-  this.showConfirm = function showConfirm(text, callback) {
-    noty({
-      text: text,
-      buttons: [
-        {
-          addClass: 'btn btn-primary', text: 'Ok', onClick: function ($noty) {
-
-          // this = button element
-          // $noty = $noty element
-
-          $noty.close();
-          // noty({text: 'You clicked "Ok" button', type: 'success'});
-
-          callback();
-        }
-        },
-        {
-          addClass: 'btn btn-danger', text: 'Cancel', onClick: function ($noty) {
-          $noty.close();
-          // noty({text: 'You clicked "Cancel" button', type: 'error'});
-        }
-        }
-      ]
-    });
-  };
+                    callback();
+                }
+                },
+                {addClass: 'btn btn-danger', text: 'Cancel', onClick: function($noty) {
+                    $noty.close();
+                    // noty({text: 'You clicked "Cancel" button', type: 'error'});
+                }
+                }
+            ]
+        });
+    };
 });

@@ -46,156 +46,156 @@
 
     var routes = {};
 
-    /**
-     * @ngdoc method
-     * @name $routeProvider#when
-     *
-     * @param {string} path Route path (matched against `$location.path`). If `$location.path`
-     *    contains redundant trailing slash or is missing one, the route will still match and the
-     *    `$location.path` will be updated to add or drop the trailing slash to exactly match the
-     *    route definition.
-     *
-     *    * `path` can contain named groups starting with a colon: e.g. `:name`. All characters up
-     *        to the next slash are matched and stored in `$routeParams` under the given `name`
-     *        when the route matches.
-     *    * `path` can contain named groups starting with a colon and ending with a star:
-     *        e.g.`:name*`. All characters are eagerly stored in `$routeParams` under the given `name`
-     *        when the route matches.
-     *    * `path` can contain optional named groups with a question mark: e.g.`:name?`.
-     *
-     *    For example, routes like `/color/:color/largecode/:largecode*\/edit` will match
-     *    `/color/brown/largecode/code/with/slashes/edit` and extract:
-     *
-     *    * `color: brown`
-     *    * `largecode: code/with/slashes`.
-     *
-     *
-     * @param {Object} route Mapping information to be assigned to `$route.current` on route
-     *    match.
-     *
-     *    Object properties:
-     *
-     *    - `controller` – `{(string|function()=}` – Controller fn that should be associated with
-     *      newly created scope or the name of a {@link angular.Module#controller registered
+  /**
+   * @ngdoc method
+   * @name $routeProvider#when
+   *
+   * @param {string} path Route path (matched against `$location.path`). If `$location.path`
+   *    contains redundant trailing slash or is missing one, the route will still match and the
+   *    `$location.path` will be updated to add or drop the trailing slash to exactly match the
+   *    route definition.
+   *
+   *    * `path` can contain named groups starting with a colon: e.g. `:name`. All characters up
+   *        to the next slash are matched and stored in `$routeParams` under the given `name`
+   *        when the route matches.
+   *    * `path` can contain named groups starting with a colon and ending with a star:
+   *        e.g.`:name*`. All characters are eagerly stored in `$routeParams` under the given `name`
+   *        when the route matches.
+   *    * `path` can contain optional named groups with a question mark: e.g.`:name?`.
+   *
+   *    For example, routes like `/color/:color/largecode/:largecode*\/edit` will match
+   *    `/color/brown/largecode/code/with/slashes/edit` and extract:
+   *
+   *    * `color: brown`
+   *    * `largecode: code/with/slashes`.
+   *
+   *
+   * @param {Object} route Mapping information to be assigned to `$route.current` on route
+   *    match.
+   *
+   *    Object properties:
+   *
+   *    - `controller` – `{(string|function()=}` – Controller fn that should be associated with
+   *      newly created scope or the name of a {@link angular.Module#controller registered
    *      controller} if passed as a string.
-     *    - `controllerAs` – `{string=}` – An identifier name for a reference to the controller.
-     *      If present, the controller will be published to scope under the `controllerAs` name.
-     *    - `template` – `{string=|function()=}` – html template as a string or a function that
-     *      returns an html template as a string which should be used by {@link
-      *      ngRoute.directive:ngView ngView} or {@link ng.directive:ngInclude ngInclude} directives.
-     *      This property takes precedence over `templateUrl`.
-     *
-     *      If `template` is a function, it will be called with the following parameters:
-     *
-     *      - `{Array.<Object>}` - route parameters extracted from the current
-     *        `$location.path()` by applying the current route
-     *
-     *    - `templateUrl` – `{string=|function()=}` – path or function that returns a path to an html
-     *      template that should be used by {@link ngRoute.directive:ngView ngView}.
-     *
-     *      If `templateUrl` is a function, it will be called with the following parameters:
-     *
-     *      - `{Array.<Object>}` - route parameters extracted from the current
-     *        `$location.path()` by applying the current route
-     *
-     *    - `resolve` - `{Object.<string, function>=}` - An optional map of dependencies which should
-     *      be injected into the controller. If any of these dependencies are promises, the router
-     *      will wait for them all to be resolved or one to be rejected before the controller is
-     *      instantiated.
-     *      If all the promises are resolved successfully, the values of the resolved promises are
-     *      injected and {@link ngRoute.$route#$routeChangeSuccess $routeChangeSuccess} event is
-     *      fired. If any of the promises are rejected the
-     *      {@link ngRoute.$route#$routeChangeError $routeChangeError} event is fired.
-     *      For easier access to the resolved dependencies from the template, the `resolve` map will
-     *      be available on the scope of the route, under `$resolve` (by default) or a custom name
-     *      specified by the `resolveAs` property (see below). This can be particularly useful, when
-     *      working with {@link angular.Module#component components} as route templates.<br />
-     *      <div class="alert alert-warning">
-     *        **Note:** If your scope already contains a property with this name, it will be hidden
-     *        or overwritten. Make sure, you specify an appropriate name for this property, that
-     *        does not collide with other properties on the scope.
-     *      </div>
-     *      The map object is:
-     *
-     *      - `key` – `{string}`: a name of a dependency to be injected into the controller.
-     *      - `factory` - `{string|function}`: If `string` then it is an alias for a service.
-     *        Otherwise if function, then it is {@link auto.$injector#invoke injected}
-     *        and the return value is treated as the dependency. If the result is a promise, it is
-     *        resolved before its value is injected into the controller. Be aware that
-     *        `ngRoute.$routeParams` will still refer to the previous route within these resolve
-     *        functions.  Use `$route.current.params` to access the new route parameters, instead.
-     *
-     *    - `resolveAs` - `{string=}` - The name under which the `resolve` map will be available on
-     *      the scope of the route. If omitted, defaults to `$resolve`.
-     *
-     *    - `redirectTo` – `{(string|function())=}` – value to update
-     *      {@link ng.$location $location} path with and trigger route redirection.
-     *
-     *      If `redirectTo` is a function, it will be called with the following parameters:
-     *
-     *      - `{Object.<string>}` - route parameters extracted from the current
-     *        `$location.path()` by applying the current route templateUrl.
-     *      - `{string}` - current `$location.path()`
-     *      - `{Object}` - current `$location.search()`
-     *
-     *      The custom `redirectTo` function is expected to return a string which will be used
-     *      to update `$location.path()` and `$location.search()`.
-     *
-     *    - `[reloadOnSearch=true]` - `{boolean=}` - reload route when only `$location.search()`
-     *      or `$location.hash()` changes.
-     *
-     *      If the option is set to `false` and url in the browser changes, then
-     *      `$routeUpdate` event is broadcasted on the root scope.
-     *
-     *    - `[caseInsensitiveMatch=false]` - `{boolean=}` - match routes without being case sensitive
-     *
-     *      If the option is set to `true`, then the particular route can be matched without being
-     *      case sensitive
-     *
-     * @returns {Object} self
-     *
-     * @description
-     * Adds a new route definition to the `$route` service.
-     */
-    this.when = function (path, route) {
-      //copy original route object to preserve params inherited from proto chain
-      var routeCopy = angular.copy(route);
-      if (angular.isUndefined(routeCopy.reloadOnSearch)) {
-        routeCopy.reloadOnSearch = true;
-      }
-      if (angular.isUndefined(routeCopy.caseInsensitiveMatch)) {
-        routeCopy.caseInsensitiveMatch = this.caseInsensitiveMatch;
-      }
-      routes[path] = angular.extend(
-        routeCopy,
-        path && pathRegExp(path, routeCopy)
+   *    - `controllerAs` – `{string=}` – An identifier name for a reference to the controller.
+   *      If present, the controller will be published to scope under the `controllerAs` name.
+   *    - `template` – `{string=|function()=}` – html template as a string or a function that
+   *      returns an html template as a string which should be used by {@link
+    *      ngRoute.directive:ngView ngView} or {@link ng.directive:ngInclude ngInclude} directives.
+   *      This property takes precedence over `templateUrl`.
+   *
+   *      If `template` is a function, it will be called with the following parameters:
+   *
+   *      - `{Array.<Object>}` - route parameters extracted from the current
+   *        `$location.path()` by applying the current route
+   *
+   *    - `templateUrl` – `{string=|function()=}` – path or function that returns a path to an html
+   *      template that should be used by {@link ngRoute.directive:ngView ngView}.
+   *
+   *      If `templateUrl` is a function, it will be called with the following parameters:
+   *
+   *      - `{Array.<Object>}` - route parameters extracted from the current
+   *        `$location.path()` by applying the current route
+   *
+   *    - `resolve` - `{Object.<string, function>=}` - An optional map of dependencies which should
+   *      be injected into the controller. If any of these dependencies are promises, the router
+   *      will wait for them all to be resolved or one to be rejected before the controller is
+   *      instantiated.
+   *      If all the promises are resolved successfully, the values of the resolved promises are
+   *      injected and {@link ngRoute.$route#$routeChangeSuccess $routeChangeSuccess} event is
+   *      fired. If any of the promises are rejected the
+   *      {@link ngRoute.$route#$routeChangeError $routeChangeError} event is fired.
+   *      For easier access to the resolved dependencies from the template, the `resolve` map will
+   *      be available on the scope of the route, under `$resolve` (by default) or a custom name
+   *      specified by the `resolveAs` property (see below). This can be particularly useful, when
+   *      working with {@link angular.Module#component components} as route templates.<br />
+   *      <div class="alert alert-warning">
+   *        **Note:** If your scope already contains a property with this name, it will be hidden
+   *        or overwritten. Make sure, you specify an appropriate name for this property, that
+   *        does not collide with other properties on the scope.
+   *      </div>
+   *      The map object is:
+   *
+   *      - `key` – `{string}`: a name of a dependency to be injected into the controller.
+   *      - `factory` - `{string|function}`: If `string` then it is an alias for a service.
+   *        Otherwise if function, then it is {@link auto.$injector#invoke injected}
+   *        and the return value is treated as the dependency. If the result is a promise, it is
+   *        resolved before its value is injected into the controller. Be aware that
+   *        `ngRoute.$routeParams` will still refer to the previous route within these resolve
+   *        functions.  Use `$route.current.params` to access the new route parameters, instead.
+   *
+   *    - `resolveAs` - `{string=}` - The name under which the `resolve` map will be available on
+   *      the scope of the route. If omitted, defaults to `$resolve`.
+   *
+   *    - `redirectTo` – `{(string|function())=}` – value to update
+   *      {@link ng.$location $location} path with and trigger route redirection.
+   *
+   *      If `redirectTo` is a function, it will be called with the following parameters:
+   *
+   *      - `{Object.<string>}` - route parameters extracted from the current
+   *        `$location.path()` by applying the current route templateUrl.
+   *      - `{string}` - current `$location.path()`
+   *      - `{Object}` - current `$location.search()`
+   *
+   *      The custom `redirectTo` function is expected to return a string which will be used
+   *      to update `$location.path()` and `$location.search()`.
+   *
+   *    - `[reloadOnSearch=true]` - `{boolean=}` - reload route when only `$location.search()`
+   *      or `$location.hash()` changes.
+   *
+   *      If the option is set to `false` and url in the browser changes, then
+   *      `$routeUpdate` event is broadcasted on the root scope.
+   *
+   *    - `[caseInsensitiveMatch=false]` - `{boolean=}` - match routes without being case sensitive
+   *
+   *      If the option is set to `true`, then the particular route can be matched without being
+   *      case sensitive
+   *
+   * @returns {Object} self
+   *
+   * @description
+   * Adds a new route definition to the `$route` service.
+   */
+  this.when = function (path, route) {
+    //copy original route object to preserve params inherited from proto chain
+    var routeCopy = angular.copy(route);
+    if (angular.isUndefined(routeCopy.reloadOnSearch)) {
+      routeCopy.reloadOnSearch = true;
+    }
+    if (angular.isUndefined(routeCopy.caseInsensitiveMatch)) {
+      routeCopy.caseInsensitiveMatch = this.caseInsensitiveMatch;
+    }
+    routes[path] = angular.extend(
+      routeCopy,
+      path && pathRegExp(path, routeCopy)
+    );
+
+    // create redirection for trailing slashes
+    if (path) {
+      var redirectPath = (path[path.length - 1] == '/')
+        ? path.substr(0, path.length - 1)
+        : path + '/';
+
+      routes[redirectPath] = angular.extend(
+        {redirectTo: path},
+        pathRegExp(redirectPath, routeCopy)
       );
+    }
 
-      // create redirection for trailing slashes
-      if (path) {
-        var redirectPath = (path[path.length - 1] == '/')
-          ? path.substr(0, path.length - 1)
-          : path + '/';
+    return this;
+  };
 
-        routes[redirectPath] = angular.extend(
-          {redirectTo: path},
-          pathRegExp(redirectPath, routeCopy)
-        );
-      }
-
-      return this;
-    };
-
-    /**
-     * @ngdoc property
-     * @name $routeProvider#caseInsensitiveMatch
-     * @description
-     *
-     * A boolean property indicating if routes defined
-     * using this provider should be matched using a case insensitive
-     * algorithm. Defaults to `false`.
-     */
-    this.caseInsensitiveMatch = false;
+  /**
+   * @ngdoc property
+   * @name $routeProvider#caseInsensitiveMatch
+   * @description
+   *
+   * A boolean property indicating if routes defined
+   * using this provider should be matched using a case insensitive
+   * algorithm. Defaults to `false`.
+   */
+  this.caseInsensitiveMatch = false;
 
     /**
      * @param path {string} path
@@ -241,19 +241,19 @@
     /**
      * @ngdoc method
      * @name $routeProvider#otherwise
-     *
+   *
      * @description
      * Sets route definition that will be used on route change when no other route definition
      * is matched.
-     *
+   *
      * @param {Object|string} params Mapping information to be assigned to `$route.current`.
      * If called with a string, the value maps to `redirectTo`.
      * @returns {Object} self
-     */
+   */
     this.otherwise = function (params) {
       if (typeof params === 'string') {
         params = {redirectTo: params};
-      }
+    }
       this.when(null, params);
       return this;
     };
@@ -268,99 +268,99 @@
       '$sce',
       function ($rootScope, $location, $routeParams, $q, $injector, $templateRequest, $sce) {
 
-        /**
-         * @ngdoc service
-         * @name $route
-         * @requires $location
-         * @requires $routeParams
-         *
-         * @property {Object} current Reference to the current route definition.
-         * The route definition contains:
-         *
-         *   - `controller`: The controller constructor as defined in the route definition.
-         *   - `locals`: A map of locals which is used by {@link ng.$controller $controller} service for
-         *     controller instantiation. The `locals` contain
-         *     the resolved values of the `resolve` map. Additionally the `locals` also contain:
-         *
-         *     - `$scope` - The current route scope.
-         *     - `$template` - The current route template HTML.
-         *
-         *     The `locals` will be assigned to the route scope's `$resolve` property. You can override
-         *     the property name, using `resolveAs` in the route definition. See
-         *     {@link ngRoute.$routeProvider $routeProvider} for more info.
-         *
-         * @property {Object} routes Object with all route configuration Objects as its properties.
-         *
-         * @description
-         * `$route` is used for deep-linking URLs to controllers and views (HTML partials).
-         * It watches `$location.url()` and tries to map the path to an existing route definition.
-         *
-         * Requires the {@link ngRoute `ngRoute`} module to be installed.
-         *
-         * You can define routes through {@link ngRoute.$routeProvider $routeProvider}'s API.
-         *
-         * The `$route` service is typically used in conjunction with the
-         * {@link ngRoute.directive:ngView `ngView`} directive and the
-         * {@link ngRoute.$routeParams `$routeParams`} service.
-         *
-         * @example
-         * This example shows how changing the URL hash causes the `$route` to match a route against the
-         * URL, and the `ngView` pulls in the partial.
-         *
-         * <example name="$route-service" module="ngRouteExample"
-         *          deps="angular-route.js" fixBase="true">
-         *   <file name="index.html">
-         *     <div ng-controller="MainController">
-         *       Choose:
-         *       <a href="Book/Moby">Moby</a> |
-         *       <a href="Book/Moby/ch/1">Moby: Ch1</a> |
-         *       <a href="Book/Gatsby">Gatsby</a> |
-         *       <a href="Book/Gatsby/ch/4?key=value">Gatsby: Ch4</a> |
-         *       <a href="Book/Scarlet">Scarlet Letter</a><br/>
-         *
-         *       <div ng-view></div>
-         *
-         *       <hr />
-         *
-         *       <pre>$location.path() = {{$location.path()}}</pre>
-         *       <pre>$route.current.templateUrl = {{$route.current.templateUrl}}</pre>
-         *       <pre>$route.current.params = {{$route.current.params}}</pre>
-         *       <pre>$route.current.scope.name = {{$route.current.scope.name}}</pre>
-         *       <pre>$routeParams = {{$routeParams}}</pre>
-         *     </div>
-         *   </file>
-         *
-         *   <file name="book.html">
-         *     controller: {{name}}<br />
-         *     Book Id: {{params.bookId}}<br />
-         *   </file>
-         *
-         *   <file name="chapter.html">
-         *     controller: {{name}}<br />
-         *     Book Id: {{params.bookId}}<br />
-         *     Chapter Id: {{params.chapterId}}
-         *   </file>
-         *
-         *   <file name="script.js">
-         *     angular.module('ngRouteExample', ['ngRoute'])
-         *
-         *      .controller('MainController', function($scope, $route, $routeParams, $location) {
+    /**
+     * @ngdoc service
+     * @name $route
+     * @requires $location
+     * @requires $routeParams
+     *
+     * @property {Object} current Reference to the current route definition.
+     * The route definition contains:
+     *
+     *   - `controller`: The controller constructor as defined in the route definition.
+     *   - `locals`: A map of locals which is used by {@link ng.$controller $controller} service for
+     *     controller instantiation. The `locals` contain
+     *     the resolved values of the `resolve` map. Additionally the `locals` also contain:
+     *
+     *     - `$scope` - The current route scope.
+     *     - `$template` - The current route template HTML.
+     *
+     *     The `locals` will be assigned to the route scope's `$resolve` property. You can override
+     *     the property name, using `resolveAs` in the route definition. See
+     *     {@link ngRoute.$routeProvider $routeProvider} for more info.
+     *
+     * @property {Object} routes Object with all route configuration Objects as its properties.
+     *
+     * @description
+     * `$route` is used for deep-linking URLs to controllers and views (HTML partials).
+     * It watches `$location.url()` and tries to map the path to an existing route definition.
+     *
+     * Requires the {@link ngRoute `ngRoute`} module to be installed.
+     *
+     * You can define routes through {@link ngRoute.$routeProvider $routeProvider}'s API.
+     *
+     * The `$route` service is typically used in conjunction with the
+     * {@link ngRoute.directive:ngView `ngView`} directive and the
+     * {@link ngRoute.$routeParams `$routeParams`} service.
+     *
+     * @example
+     * This example shows how changing the URL hash causes the `$route` to match a route against the
+     * URL, and the `ngView` pulls in the partial.
+     *
+     * <example name="$route-service" module="ngRouteExample"
+     *          deps="angular-route.js" fixBase="true">
+     *   <file name="index.html">
+     *     <div ng-controller="MainController">
+     *       Choose:
+     *       <a href="Book/Moby">Moby</a> |
+     *       <a href="Book/Moby/ch/1">Moby: Ch1</a> |
+     *       <a href="Book/Gatsby">Gatsby</a> |
+     *       <a href="Book/Gatsby/ch/4?key=value">Gatsby: Ch4</a> |
+     *       <a href="Book/Scarlet">Scarlet Letter</a><br/>
+     *
+     *       <div ng-view></div>
+     *
+     *       <hr />
+     *
+     *       <pre>$location.path() = {{$location.path()}}</pre>
+     *       <pre>$route.current.templateUrl = {{$route.current.templateUrl}}</pre>
+     *       <pre>$route.current.params = {{$route.current.params}}</pre>
+     *       <pre>$route.current.scope.name = {{$route.current.scope.name}}</pre>
+     *       <pre>$routeParams = {{$routeParams}}</pre>
+     *     </div>
+     *   </file>
+     *
+     *   <file name="book.html">
+     *     controller: {{name}}<br />
+     *     Book Id: {{params.bookId}}<br />
+     *   </file>
+     *
+     *   <file name="chapter.html">
+     *     controller: {{name}}<br />
+     *     Book Id: {{params.bookId}}<br />
+     *     Chapter Id: {{params.chapterId}}
+     *   </file>
+     *
+     *   <file name="script.js">
+     *     angular.module('ngRouteExample', ['ngRoute'])
+     *
+     *      .controller('MainController', function($scope, $route, $routeParams, $location) {
      *          $scope.$route = $route;
      *          $scope.$location = $location;
      *          $scope.$routeParams = $routeParams;
      *      })
-         *
-         *      .controller('BookController', function($scope, $routeParams) {
+     *
+     *      .controller('BookController', function($scope, $routeParams) {
      *          $scope.name = "BookController";
      *          $scope.params = $routeParams;
      *      })
-         *
-         *      .controller('ChapterController', function($scope, $routeParams) {
+     *
+     *      .controller('ChapterController', function($scope, $routeParams) {
      *          $scope.name = "ChapterController";
      *          $scope.params = $routeParams;
      *      })
-         *
-         *     .config(function($routeProvider, $locationProvider) {
+     *
+     *     .config(function($routeProvider, $locationProvider) {
      *       $routeProvider
      *        .when('/Book/:bookId', {
      *         templateUrl: 'book.html',
@@ -382,11 +382,11 @@
      *       // configure html5 to get links working on jsfiddle
      *       $locationProvider.html5Mode(true);
      *     });
-         *
-         *   </file>
-         *
-         *   <file name="protractor.js" type="protractor">
-         *     it('should load and compile correct template', function() {
+     *
+     *   </file>
+     *
+     *   <file name="protractor.js" type="protractor">
+     *     it('should load and compile correct template', function() {
      *       element(by.linkText('Moby: Ch1')).click();
      *       var content = element(by.css('[ng-view]')).getText();
      *       expect(content).toMatch(/controller\: ChapterController/);
@@ -399,9 +399,9 @@
      *       expect(content).toMatch(/controller\: BookController/);
      *       expect(content).toMatch(/Book Id\: Scarlet/);
      *     });
-         *   </file>
-         * </example>
-         */
+     *   </file>
+     * </example>
+     */
 
         /**
          * @ngdoc event
@@ -520,7 +520,7 @@
                 $location.search(newParams);
               } else {
                 throw $routeMinErr('norout', 'Tried updating route when with no current route');
-              }
+            }
             }
           };
 
@@ -558,7 +558,7 @@
 
             if (key && val) {
               params[key.name] = val;
-            }
+        }
           }
           return params;
         }
@@ -575,8 +575,8 @@
             if ($rootScope.$broadcast('$routeChangeStart', preparedRoute, lastRoute).defaultPrevented) {
               if ($locationEvent) {
                 $locationEvent.preventDefault();
-              }
-            }
+          }
+        }
           }
         }
 
@@ -599,9 +599,9 @@
                 } else {
                   $location.url(nextRoute.redirectTo(nextRoute.pathParams, $location.path(), $location.search()))
                     .replace();
-                }
-              }
             }
+          }
+        }
 
             $q.when(nextRoute).then(resolveLocals).then(function (locals) {
               // after route change
@@ -611,7 +611,7 @@
                   angular.copy(nextRoute.params, $routeParams);
                 }
                 $rootScope.$broadcast('$routeChangeSuccess', nextRoute, lastRoute);
-              }
+            }
             }, function (error) {
               if (nextRoute == $route.current) {
                 $rootScope.$broadcast('$routeChangeError', nextRoute, lastRoute, error);
@@ -631,7 +631,7 @@
             var template = getTemplateFor(route);
             if (angular.isDefined(template)) {
               locals['$template'] = template;
-            }
+        }
             return $q.all(locals);
           }
         }
@@ -642,7 +642,7 @@
           if (angular.isDefined(template = route.template)) {
             if (angular.isFunction(template)) {
               template = template(route.params);
-            }
+        }
           } else if (angular.isDefined(templateUrl = route.templateUrl)) {
             if (angular.isFunction(templateUrl)) {
               templateUrl = templateUrl(route.params);
@@ -669,7 +669,7 @@
                 pathParams: params
               });
               match.$$route = route;
-            }
+        }
           });
           // No route matched; fallback to "otherwise" route
           return match || routes[null] && inherit(routes[null], {params: {}, pathParams: {}});
@@ -689,7 +689,7 @@
               result.push(params[key]);
               result.push(segmentMatch[2] || '');
               delete params[key];
-            }
+        }
           });
           return result.join('');
         }
@@ -1018,10 +1018,10 @@
           var controller = $controller(current.controller, locals);
           if (current.controllerAs) {
             scope[current.controllerAs] = controller;
-          }
+        }
           $element.data('$ngControllerController', controller);
           $element.children().data('$ngControllerController', controller);
-        }
+      }
         scope[current.resolveAs || '$resolve'] = locals;
 
         link(scope);

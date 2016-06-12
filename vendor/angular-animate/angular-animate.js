@@ -84,7 +84,7 @@
   function assertArg(arg, name, reason) {
     if (!arg) {
       throw ngMinErr('areq', "Argument '{0}' is {1}", (name || '?'), (reason || "required"));
-    }
+  }
     return arg;
   }
 
@@ -102,7 +102,7 @@
     if (options && (options.to || options.from)) {
       styles.to = options.to;
       styles.from = options.from;
-    }
+  }
     return styles;
   }
 
@@ -118,7 +118,7 @@
         className += (i > 0) ? ' ' : '';
         className += isPrefix ? fix + klass
           : klass + fix;
-      }
+    }
     });
     return className;
   }
@@ -127,7 +127,7 @@
     var index = arr.indexOf(val);
     if (val >= 0) {
       arr.splice(index, 1);
-    }
+  }
   }
 
   function stripCommentsFromElement(element) {
@@ -142,19 +142,19 @@
           // is the only element within the jqLite wrapper.
           // (it's important that we retain the element instance.)
           if (element[0].nodeType === ELEMENT_NODE) {
-            return element;
+          return element;
           }
           break;
 
         default:
           return jqLite(extractElementNode(element));
           break;
-      }
+    }
     }
 
     if (element.nodeType === ELEMENT_NODE) {
       return jqLite(element);
-    }
+  }
   }
 
   function extractElementNode(element) {
@@ -163,8 +163,8 @@
       var elm = element[i];
       if (elm.nodeType == ELEMENT_NODE) {
         return elm;
-      }
     }
+  }
   }
 
   function $$addClass($$jqLite, element, className) {
@@ -184,12 +184,12 @@
       if (options.addClass) {
         $$addClass($$jqLite, element, options.addClass);
         options.addClass = null;
-      }
+    }
       if (options.removeClass) {
         $$removeClass($$jqLite, element, options.removeClass);
         options.removeClass = null;
-      }
     }
+  }
   }
 
   function prepareAnimationOptions(options) {
@@ -202,7 +202,7 @@
         domOperation = noop;
       };
       options.$$prepared = true;
-    }
+  }
     return options;
   }
 
@@ -215,14 +215,14 @@
     if (options.from) {
       element.css(options.from);
       options.from = null;
-    }
+  }
   }
 
   function applyAnimationToStyles(element, options) {
     if (options.to) {
       element.css(options.to);
       options.to = null;
-    }
+  }
   }
 
   function mergeAnimationDetails(element, oldAnimation, newAnimation) {
@@ -300,7 +300,7 @@
       if (allow) {
         if (classes[prop].length) {
           classes[prop] += ' ';
-        }
+      }
         classes[prop] += klass;
       }
     });
@@ -316,8 +316,8 @@
         // incase extra spaces were applied to the options
         if (klass.length) {
           obj[klass] = true;
-        }
-      });
+      }
+    });
       return obj;
     }
 
@@ -332,28 +332,28 @@
     var classes = '';
     if (event) {
       classes = pendClasses(event, EVENT_CLASS_PREFIX, true);
-    }
+  }
     if (options.addClass) {
       classes = concatWithSpace(classes, pendClasses(options.addClass, ADD_CLASS_SUFFIX));
-    }
+  }
     if (options.removeClass) {
       classes = concatWithSpace(classes, pendClasses(options.removeClass, REMOVE_CLASS_SUFFIX));
-    }
+  }
     if (classes.length) {
       options.preparationClasses = classes;
       element.addClass(classes);
-    }
+  }
   }
 
   function clearGeneratedClasses(element, options) {
     if (options.preparationClasses) {
       element.removeClass(options.preparationClasses);
       options.preparationClasses = null;
-    }
+  }
     if (options.activeClasses) {
       element.removeClass(options.activeClasses);
       options.activeClasses = null;
-    }
+  }
   }
 
   function blockTransitions(node, duration) {
@@ -423,7 +423,7 @@
       var items = queue.shift();
       for (var i = 0; i < items.length; i++) {
         items[i]();
-      }
+    }
 
       if (!cancelFn) {
         $$rAF(function () {
@@ -527,7 +527,7 @@
         function setData(value) {
           value = value === 'on' || value === 'true';
           element.data(NG_ANIMATE_CHILDREN_DATA, value);
-        }
+      }
       }
     };
   }];
@@ -790,14 +790,14 @@
         // only numerical-based values have a negative sign or digit as the first value
         if (c === '-' || c === '+' || c >= 0) {
           val = parseMaxTime(val);
-        }
+      }
 
         // by setting this to null in the event that the delay is not set or is set directly as 0
         // then we can still allow for negative values to be used later on and not mistake this
         // value for being greater than any other negative value.
         if (val === 0) {
           val = null;
-        }
+      }
         styles[actualStyleName] = val;
       }
     });
@@ -813,7 +813,7 @@
       // getComputedStyle will always handle the conversion for us
       if (value.charAt(value.length - 1) == 's') {
         value = value.substring(0, value.length - 1);
-      }
+    }
       value = parseFloat(value) || 0;
       maxValue = maxValue ? Math.max(value, maxValue) : value;
     });
@@ -831,7 +831,7 @@
       style += DURATION_KEY;
     } else {
       value += ' linear all';
-    }
+  }
     return [style, value];
   }
 
@@ -857,7 +857,7 @@
           cache[key] = {total: 1, value: value};
         } else {
           cache[key].total++;
-        }
+      }
       }
     };
   }
@@ -906,7 +906,7 @@
             timings = computeCssStyles($window, node, properties);
             if (timings.animationIterationCount === 'infinite') {
               timings.animationIterationCount = 1;
-            }
+        }
           }
 
           // we keep putting this in multiple times even though the value and the cacheKey are the same
@@ -938,7 +938,7 @@
               $$jqLite.removeClass(node, staggerClassName);
 
               gcsStaggerLookup.put(cacheKey, stagger);
-            }
+        }
           }
 
           return stagger || {};
@@ -961,7 +961,7 @@
             // during this looping then it will consider new requests
             for (var i = 0; i < rafWaitQueue.length; i++) {
               rafWaitQueue[i](pageWidth);
-            }
+        }
             rafWaitQueue.length = 0;
           });
         }
@@ -1218,7 +1218,7 @@
               if (animationClosed) return;
 
               runnerHost = {
-                end: endFn,
+            end: endFn,
                 cancel: cancelFn,
                 resume: null, //this will be set during the start() phase
                 pause: null
@@ -1378,7 +1378,7 @@
                   animationPaused
                     ? temporaryStyles.push(value)
                     : removeFromArray(temporaryStyles, value);
-                }
+            }
               } else if (animationPaused && playAnimation) {
                 animationPaused = false;
                 close();
@@ -1513,7 +1513,7 @@
               if (options.to) {
                 if (options.cleanupStyles) {
                   registerRestorableStyles(restoreStyles, node, Object.keys(options.to));
-                }
+            }
                 applyAnimationToStyles(element, options);
               }
             }
@@ -1527,13 +1527,13 @@
               if (animationsData) {
                 for (var i = 1; i < animationsData.length; i++) {
                   animationsData[i]();
-                }
+            }
                 element.removeData(ANIMATE_TIMER_KEY);
-              }
+          }
             }
           }
         };
-      }];
+  }];
   }];
 
   var $$AnimateCssDriverProvider = ['$$animationProvider', function ($$animationProvider) {
@@ -1622,18 +1622,18 @@
               var currentAnimation = startingAnimator.start();
               currentAnimation.done(function () {
                 currentAnimation = null;
-                if (!animatorIn) {
-                  animatorIn = prepareInAnimation();
-                  if (animatorIn) {
-                    currentAnimation = animatorIn.start();
-                    currentAnimation.done(function () {
-                      currentAnimation = null;
-                      end();
-                      runner.complete();
-                    });
-                    return currentAnimation;
-                  }
-                }
+            if (!animatorIn) {
+              animatorIn = prepareInAnimation();
+              if (animatorIn) {
+                currentAnimation = animatorIn.start();
+                currentAnimation.done(function () {
+                  currentAnimation = null;
+                  end();
+                  runner.complete();
+                });
+                return currentAnimation;
+              }
+            }
                 // in the event that there is no `in` animation
                 end();
                 runner.complete();
@@ -1650,7 +1650,7 @@
                 if (currentAnimation) {
                   currentAnimation.end();
                 }
-              }
+          }
             }
           };
 
@@ -1739,11 +1739,11 @@
 
               if (fromAnimation) {
                 animationRunners.push(fromAnimation.start());
-              }
+          }
 
               if (toAnimation) {
                 animationRunners.push(toAnimation.start());
-              }
+          }
 
               forEach(anchorAnimations, function (animation) {
                 animationRunners.push(animation.start());
@@ -1752,7 +1752,7 @@
               var runner = new $$AnimateRunner({
                 end: endFn,
                 cancel: endFn // CSS-driven animations cannot be cancelled, only ended
-              });
+          });
 
               $$AnimateRunner.all(animationRunners, function (status) {
                 runner.complete(status);
@@ -1830,7 +1830,7 @@
             classes = element.attr('class') || '';
             if (options.addClass) {
               classes += ' ' + options.addClass;
-            }
+        }
             if (options.removeClass) {
               classes += ' ' + options.removeClass;
             }
@@ -1886,7 +1886,7 @@
                 close();
                 runner = new $$AnimateRunner();
                 runner.complete(true);
-              }
+          }
               return runner;
             },
             start: function () {
@@ -1902,7 +1902,7 @@
                 chain.push(function (fn) {
                   closeActiveAnimations = before(fn);
                 });
-              }
+          }
 
               if (chain.length) {
                 chain.push(function (fn) {
@@ -1910,8 +1910,8 @@
                   fn(true);
                 });
               } else {
-                applyOptions();
-              }
+            applyOptions();
+          }
 
               if (after) {
                 chain.push(function (fn) {
@@ -1922,7 +1922,7 @@
               runner.setHost({
                 end: function () {
                   endAnimations();
-                },
+            },
                 cancel: function () {
                   endAnimations(true);
                 }
@@ -2005,7 +2005,7 @@
                     resolved = true;
                     (endProgressCb || noop)(rejected);
                     runner.complete(!rejected);
-                  }
+              }
                 };
 
                 runner = new $$AnimateRunner({
@@ -2014,7 +2014,7 @@
                   },
                   cancel: function () {
                     onAnimationComplete(true);
-                  }
+              }
                 });
 
                 endProgressCb = executeAnimationFn(animation, element, event, options, function (result) {
@@ -2057,8 +2057,8 @@
               if (operations.length) {
                 forEach(operations, function (animateFn) {
                   runners.push(animateFn());
-                });
-              }
+            });
+          }
 
               runners.length ? $$AnimateRunner.all(runners, callback) : callback();
 
@@ -2067,7 +2067,7 @@
                   reject ? runner.cancel() : runner.end();
                 });
               };
-            };
+        };
           }
         };
 
@@ -2080,11 +2080,11 @@
             if (animationFactory && !flagMap[klass]) {
               matches.push($injector.get(animationFactory));
               flagMap[klass] = true;
-            }
+        }
           }
           return matches;
         }
-      }];
+  }];
   }];
 
   var $$AnimateJsDriverProvider = ['$$animationProvider', function ($$animationProvider) {
@@ -2124,7 +2124,7 @@
                     runner.end();
                   });
                 };
-              }
+            }
 
               function done(status) {
                 runner.complete(status);
@@ -2133,8 +2133,8 @@
           };
         } else {
           return prepareAnimation(animationDetails);
-        }
-      };
+      }
+    };
 
       function prepareAnimation(animationDetails) {
         // TODO(matsko): make sure to check for grouped animations and delegate down to normal animations
@@ -2143,7 +2143,7 @@
         var options = animationDetails.options;
         var classes = animationDetails.classes;
         return $$animateJs(element, event, classes, options);
-      }
+    }
     }];
   }];
 
@@ -2163,14 +2163,14 @@
     function makeTruthyCssClassMap(classString) {
       if (!classString) {
         return null;
-      }
+    }
 
       var keys = classString.split(ONE_SPACE);
       var map = Object.create(null);
 
       forEach(keys, function (key) {
         map[key] = true;
-      });
+    });
       return map;
     }
 
@@ -2186,7 +2186,7 @@
     function isAllowed(ruleType, element, currentAnimation, previousAnimation) {
       return rules[ruleType].some(function (fn) {
         return fn(element, currentAnimation, previousAnimation);
-      });
+    });
     }
 
     function hasAnimationClasses(animation, and) {
@@ -2270,7 +2270,7 @@
                 postDigestCalled = true;
                 fn();
               });
-            }
+        }
           };
         }
 
@@ -2343,7 +2343,7 @@
                 matches.push(entry.callback);
               } else if (event === 'leave' && contains.call(entry.node, targetParentNode)) {
                 matches.push(entry.callback);
-              }
+          }
             });
           }
 
@@ -2447,7 +2447,7 @@
                   // (element, bool) - Element setter
                   disabledElementsLookup.put(node, !bool);
                 }
-              }
+          }
             }
 
             return bool;
@@ -2562,12 +2562,12 @@
             var skipAnimationFlag = isAllowed('skip', element, newAnimation, existingAnimation);
             if (skipAnimationFlag) {
               if (existingAnimation.state === RUNNING_STATE) {
-                close();
-                return runner;
+            close();
+            return runner;
               } else {
                 mergeAnimationDetails(element, existingAnimation, newAnimation);
                 return existingAnimation.runner;
-              }
+          }
             }
             var cancelAnimationFlag = isAllowed('cancel', element, newAnimation, existingAnimation);
             if (cancelAnimationFlag) {
@@ -2604,7 +2604,7 @@
                   //we return the same runner since only the option values of this animation will
                   //be fed into the `existingAnimation`.
                   return existingAnimation.runner;
-                }
+            }
               }
             }
           } else {
@@ -2659,16 +2659,16 @@
               // to make sure that the domOperation and options are
               // handled accordingly
               if (animationCancelled) {
-                applyAnimationClasses(element, options);
-                applyAnimationStyles(element, options);
+            applyAnimationClasses(element, options);
+            applyAnimationStyles(element, options);
               }
 
               // if the event changed from something like enter to leave then we do
               // it, otherwise if it's the same then the end result will be the same too
               if (animationCancelled || (isStructural && animationDetails.event !== event)) {
-                options.domOperation();
+            options.domOperation();
                 runner.end();
-              }
+          }
 
               // in the event that the element animation was not cancelled or a follow-up animation
               // isn't allowed to animate from here then we need to clear the state of the element
@@ -2678,7 +2678,7 @@
               }
 
               return;
-            }
+        }
 
             // this combined multiple class to addClass / removeClass into a setClass event
             // so long as a structural event did not take over the animation
@@ -2699,7 +2699,7 @@
               var animationDetails = activeAnimationsLookup.get(node);
               if (animationDetails && animationDetails.counter === counter) {
                 clearElementAnimationState(getDomNode(element));
-              }
+          }
               notifyProgress(runner, event, 'close', {});
             });
           });
@@ -2749,7 +2749,7 @@
                 /* falls through */
                 case PRE_DIGEST_STATE:
                   activeAnimationsLookup.remove(child);
-                  break;
+              break;
               }
             }
           });
@@ -2814,7 +2814,7 @@
                 break;
               } else if (parentElementDisabled === false) {
                 elementDisabled = false;
-              }
+          }
               parentAnimationDetected = details.structural;
             }
 
@@ -2823,7 +2823,7 @@
               if (isDefined(value)) {
                 animateChildren = value;
               }
-            }
+        }
 
             // there is no need to continue traversing at this point
             if (parentAnimationDetected && animateChildren === false) break;
@@ -2838,7 +2838,7 @@
               // If both body and root have been found, any other checks are pointless,
               // as no animation data should live outside the application
               break;
-            }
+        }
 
             if (!rootElementDetected) {
               // If no rootElement is detected, check if the parentElement is pinned to another element
@@ -2855,7 +2855,7 @@
 
           var allowAnimation = (!parentAnimationDetected || animateChildren) && elementDisabled !== true;
           return allowAnimation && rootElementDetected && bodyElementDetected;
-        }
+    }
 
         function markElementAnimationState(element, state, details) {
           details = details || {};
@@ -2869,7 +2869,7 @@
             ? extend(oldValue, details)
             : details;
           activeAnimationsLookup.put(node, newValue);
-        }
+    }
       }];
   }];
 
@@ -2933,11 +2933,11 @@
               if (parentEntry) {
                 if (!parentEntry.processed) {
                   parentEntry = processNode(parentEntry);
-                }
-                break;
-              }
-              parentNode = parentNode.parentNode;
             }
+                break;
+          }
+              parentNode = parentNode.parentNode;
+        }
 
             (parentEntry || tree).children.push(entry);
             return entry;
@@ -2963,12 +2963,12 @@
                 nextLevelEntries = 0;
                 result.push(row);
                 row = [];
-              }
+          }
               row.push(entry.fn);
               entry.children.forEach(function (childEntry) {
                 nextLevelEntries++;
                 queue.push(childEntry);
-              });
+          });
               remainingLevelEntries--;
             }
 
@@ -3047,7 +3047,7 @@
                 animations.push(entry);
               } else {
                 entry.close();
-              }
+          }
             });
 
             // now any future animations will be in another postDigest
@@ -3077,8 +3077,8 @@
                     var operation = invokeFirstDriver(animationEntry);
                     if (operation) {
                       startAnimationFn = operation.start;
-                    }
-                  }
+                }
+              }
 
                   if (!startAnimationFn) {
                     closeFn();
@@ -3088,7 +3088,7 @@
                       closeFn(!status);
                     });
                     updateAnimationRunners(animationEntry, animationRunner);
-                  }
+              }
                 }
               });
             });
@@ -3112,7 +3112,7 @@
               var attr = node.getAttribute(NG_ANIMATE_REF_ATTR);
               if (attr && attr.length) {
                 anchors.push(node);
-              }
+          }
             });
             return anchors;
           }
@@ -3140,7 +3140,7 @@
                 });
               } else {
                 preparedAnimations.push(animation);
-              }
+          }
             });
 
             var usedIndicesLookup = {};
@@ -3157,9 +3157,9 @@
                 if (!usedIndicesLookup[indexKey]) {
                   usedIndicesLookup[indexKey] = true;
                   preparedAnimations.push(animations[index]);
-                }
+            }
                 return;
-              }
+          }
 
               var fromAnimation = animations[from.animationID];
               var toAnimation = animations[to.animationID];
@@ -3186,10 +3186,10 @@
                 // the same animation driver and to properly sequence the anchor animation.
                 if (group.classes.length) {
                   preparedAnimations.push(group);
-                } else {
+            } else {
                   preparedAnimations.push(fromAnimation);
                   preparedAnimations.push(toAnimation);
-                }
+            }
               }
 
               anchorGroups[lookupKey].anchors.push({
@@ -3213,8 +3213,8 @@
                 if (aa === b[j]) {
                   matches.push(aa);
                   break;
-                }
-              }
+            }
+          }
             }
 
             return matches.join(' ');
@@ -3231,7 +3231,7 @@
               var driver = factory(animationDetails);
               if (driver) {
                 return driver;
-              }
+          }
             }
           }
 
@@ -3283,7 +3283,7 @@
             runner.complete(!rejected);
           }
         };
-      }];
+  }];
   }];
 
   /**

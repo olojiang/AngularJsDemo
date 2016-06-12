@@ -55,7 +55,7 @@ mapModule.directive("amapDisplay", ['AmapWrapper',
       var data = scope.data;
 
       if (data) {
-        var label = data.Label || [];
+          var label = data.Label || [];
         var polyline = data.Polyline || [];
         var driving = data.Driving || [];
 
