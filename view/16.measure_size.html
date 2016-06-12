@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width">
+  <meta charset="UTF-8">
+  <title>Measure div size, after $scope.data change</title>
+
+  <script src="../vendor/angular/angular.js"></script>
+  <script src="../js/measure_size.js"></script>
+  <style type="text/css">
+    .textArea {
+      display: inline-block;
+      padding: 10px;
+      border: 1px solid gray;
+      margin: 20px;
+      margin-top: 50px;
+      margin-left: 75px;
+    }
+
+    .textContainer {
+      margin-top: 50px;
+      margin-left: 25px;
+    }
+  </style>
+</head>
+<body ng-app="myModule">
+<div id="main" ng-controller="myController">
+  <!-- Button to trigger data change -->
+  <div class="buttonArea">
+    <button class="btn btn-default" ng-click="buttonClicked($event)">Change Data</button>
+  </div>
+
+  <!-- Data display div, should be measured -->
+  <div class="textContainer">
+    <div class="textArea" data-watch-sample="data">
+      {{data}}
+    </div>
+  </div>
+
+  <!-- Measure result, method -->
+  <div class="resultArea">
+    offsetWidth: {{offsetWidth}}<br/>
+    offsetHeight: {{offsetHeight}}<br/>
+
+    offsetLeft: {{offsetLeft}}<br/>
+    offsetTop: {{offsetTop}}<br/>
+
+    clientWidth: {{clientWidth}}<br/>
+    clientHeight: {{clientHeight}}<br/>
+
+    scrollWidth: {{scrollWidth}}<br/>
+    scrollHeight: {{scrollHeight}}<br/>
+
+    clientLeft: {{clientLeft}}<br/>
+    clientTop: {{clientTop}}<br/>
+  </div>
+</div>
+</body>
+</html>

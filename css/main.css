@@ -1,0 +1,66 @@
+#container {
+    width: 700px;
+    height: 400px;
+}
+
+.homeContainer {
+    background-color: #eee;
+    padding: 20px;
+}
+
+.homeImage {
+    width: 100%;
+    margin: auto;
+}
+
+/*
+ * Override
+ */
+.navbar-header {
+    min-width: 650px;
+}
+
+.navbar-brand > img {
+    margin-top: -3px;
+}
+
+.btn-group {
+    margin: 10px 5px;
+    display: inline-block;
+}
+
+.input-group {
+    margin: 10px 5px 10px 5px;
+}
+
+.buttonsGroup {
+    text-align: right;
+    padding: 0 10px;
+}
+
+/*
+ * Ours
+ */
+ng-form div.input-group, .movePlanForm div.input-group {
+    margin-bottom: 5px;
+}
+
+.scenicSelectionContainer {
+    background-color: #FFD700;
+    padding: 15px;
+}
+
+.scenicSelectionContainer > .panel {
+    margin: 0;
+}
+
+.siteEditorMain {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.movePlanLabel {
+    margin-top: 10px;
+    display: inline-block;
+}
+

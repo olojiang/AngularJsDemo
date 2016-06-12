@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <meta charset="UTF-8">
+  <title></title>
+
+  <script src="../vendor/angular/angular.js"></script>
+
+  <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
+
+  <script type="text/javascript">
+    var module = angular.module('myApp', []);
+
+    module.value('numberX', 15.8);
+    module.value('stringX', 'Hello value');
+    module.value('objectX', {name: 'hunter', age: '32'});
+
+    module.constant('constantX', 85.2);
+
+    module.factory('factory1', function () {
+      return 'FAC1';
+    });
+
+    module.factory('factory2', function (objectX) {
+      return objectX['name'];
+    });
+
+    module.service('service1', function (numberX) {
+      this.call1 = function () {
+        return 'call1';
+      };
+
+      this.call2 = function (param) {
+        return 'call2: ' + numberX + ", " + param;
+      }
+    });
+
+    module.provider('provider1', function () {
+      var provider = {};
+
+      // Provider as 'service'
+      provider.$get = function () {
+        var service = {};
+
+        service.providerCall1 = function (input) {
+          return "Hello input: " + input;
+        };
+
+        return service;
+      };
+
+      return provider;
+    });
+
+    module.provider('provider2', function () {
+      var provider = {};
+
+      // Provider as 'factory'
+      provider.$get = function () {
+        return "Hello providerValue";
+      };
+
+      return provider;
+    });
+
+    module.controller('myController', function ($scope,
+                                                numberX, stringX, objectX,
+                                                constantX,
+                                                factory1, factory2,
+                                                service1,
+                                                provider1, provider2) {
+      $scope['numberX'] = numberX;
+      $scope['stringX'] = stringX;
+      $scope['objectX'] = objectX;
+
+      $scope['constantX'] = constantX;
+
+      $scope['factory1'] = factory1;
+      $scope['factory2'] = factory2;
+
+      $scope['call1'] = service1.call1;
+      $scope['call2'] = service1.call2;
+
+      $scope['providerCall1'] = provider1.providerCall1;
+      $scope['providerValue'] = provider2;
+    });
+  </script>
+</head>
+<body ng-app="myApp">
+<div class="container" ng-controller="myController">
+  <h1>value</h1>
+  <div>number: <code>{{numberX}}</code></div>
+  <div>string: <code>{{stringX}}</code></div>
+  <div>object: <code>{{objectX}}</code></div>
+
+  <h1>constant</h1>
+  <h3>only constant can co-operate with provider, value can not</h3>
+  <div>constantX: <code>{{constantX}}</code></div>
+
+  <h1>factory</h1>
+  <p>function to Return
+    <mark>result</mark>
+  </p>
+  <p>
+    <mark>value</mark>
+    can be used as
+    <mark>parameter</mark>
+  </p>
+  <p>
+    <mark>Only Value</mark>
+    is injected, not the function
+  </p>
+  <p>factory without value parameter: <code>{{factory1}}</code></p>
+  <p>factory with value parameter: <code>{{factory2}}</code></p>
+
+  <h1>service</h1>
+  <h3>
+    <mark>singleton</mark>
+    , call new service()
+  </h3>
+  <h3>return a setp of
+    <mark>functions</mark>
+  </h3>
+  <p>service: <code>{{call1()}}</code></p>
+  <p>service with parameter: <code>{{call2('abc')}}</code></p>
+
+  <h1>provider</h1>
+  <h3>
+    <mark>provider</mark>
+    can return both
+    <mark>value</mark>
+    and
+    <mark>service</mark>
+  </h3>
+  <p>provider as
+    <mark>service</mark>
+    : <code>{{providerCall1('input value')}}</code></p>
+  <p>provider as
+    <mark>factory</mark>
+    : <code>{{providerValue}}</code></p>
+</div>
+</body>
+</html>

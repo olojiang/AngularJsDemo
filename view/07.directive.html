@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width">
+  <meta charset="UTF-8">
+  <title>Directive</title>
+
+  <script src="../vendor/angular/angular.js"></script>
+  <script src="../js/directive.js"></script>
+</head>
+<body ng-app="myModule">
+<div id="main" ng-controller="myController">
+  <!-- Simple template -->
+  <h3>Simple Template</h3>
+  <userinfo>
+    Will be replaced
+  </userinfo>
+
+  <!-- Template url as a function -->
+  <h3>Template url as a function</h3>
+  <userinfo2 name="func">
+    Will be replaced
+  </userinfo2>
+  <userinfo2 name="func2">
+    Will be replaced
+  </userinfo2>
+
+  <!-- Template, provide function, from parent -> child -->
+  <h3>Provide function, from parent -> child</h3>
+  <div>{{message}}</div>
+  <div ng-hide="isHiding">
+    <dialog-close on-close="hideSection(message)">
+      Hello from inside of ng-transclude: {{name}}
+    </dialog-close>
+  </div>
+
+  <!-- Isolated Scope -->
+  <h3>Isolated Scope</h3>
+  <user-info-isolated user="jiwei"></user-info-isolated>
+  <user-info-isolated user="jiali"></user-info-isolated>
+
+  <!-- With compile() -->
+  <h3>compile()</h3>
+  <compile-element attrkey="aaa"></compile-element>
+  <compile-element attrkey="bbb"></compile-element>
+
+  <!-- With link() only -->
+  <h3>link()</h3>
+  <element-link attrkey="ccc"></element-link>
+  <element-link attrkey="ddd"></element-link>
+
+  <h3>link() - manipulate DOM</h3>
+  <div>
+    <div>
+      <label>Input time format: <input type="text" ng-model="user.format" name="format" required/></label>
+    </div>
+    <div>
+      <element-link2 format="user.format"></element-link2>
+    </div>
+  </div>
+
+  <!-- a link -->
+  <h3>ng-href</h3>
+  <div>
+    <a ng-href="https://www.baidu.com" target="_self">Baidu</a>
+    <a ng-href="https://angularjs.org" target="_self">angularjs.org</a>
+  </div>
+
+  <!-- Transclude -->
+  <!-- May hve outer scope, $parent will access the item -->
+  <h3>Transclude</h3>
+  <element-transclude attrkey="eee">Hello from inner, but as it's ng-transclude, it will access parent scope: {{eee}}
+  </element-transclude>
+  <element-transclude attrkey="fff">Hello from inner, but as it's ng-transclude, it will access parent scope: {{fff}}
+  </element-transclude>
+
+  <!-- svg attr -->
+  <h3>SVG attribute in augular, data-ng-attr-cx={{30}}</h3>
+  <div>
+    <svg>
+      <circle cy="20" r="10" data-ng-attr-cx={{30}}
+              style="stroke: gray; stroke-width: 1; fill: white;">
+      </circle>
+    </svg>
+  </div>
+</div>
+</body>
+</html>

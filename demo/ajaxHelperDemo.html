@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width">
+  <meta charset="UTF-8">
+  <title>Demo Ajax Helper Method</title>
+
+  <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.css"/>
+  <link rel="stylesheet" href="../vendor/animate.css/animate.min.css"/>
+
+  <link rel="stylesheet" href="../css/notyService.css"/>
+
+  <script src="../vendor/angular/angular.js"></script>
+  <script src="../vendor/angular-resource.js"></script>
+  <script src="../vendor/angular-route.min.js"></script>
+  <script src="../vendor/angular-animate.min.js"></script>
+
+  <script src="../vendor/ui-bootstrap-tpls-1.1.2.min.js"></script>
+
+  <!-- Dependencies -->
+  <script src="../vendor/jquery/dist/jquery.min.js"></script>
+  <script src="../vendor/noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+  <script src="../vendor/underscore/underscore-min.js"></script>
+
+  <style type="text/css">
+    .buttons {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body ng-app="demoModule">
+<div id="main" ng-controller="myController">
+
+  <!-- Div for different buttons -->
+  <div class="buttons">
+    <h1>This will show how to use the ajaxHelper</h1>
+
+    <button class="btn btn-default" ng-click="handleNoneExistAjax($event)">Check Ajax with none exist API</button>
+    <button class="btn btn-default" ng-click="handleExistingAjax($event)">Check Ajax correct API</button>
+  </div>
+
+
+  <!-- Demo Controller and module -->
+  <script src="../modules/core/controller/ajaxHelperDemo.js"></script>
+
+  <!-- Service -->
+  <script src="../modules/route/factory/routeService.js"></script>
+  <script src="../modules/route/provider/routeProvider.js"></script>
+
+  <script src="../modules/core/service/notyService.js"></script>
+  <script src="../modules/core/service/ajaxHelper.js"></script>
+</div>
+</body>
+</html>

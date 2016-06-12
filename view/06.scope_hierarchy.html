@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width">
+  <meta charset="UTF-8">
+  <title>Scope Hierarchy</title>
+
+  <script src="../vendor/angular/angular.js"></script>
+  <script src="../js/scope_hierarchy.js"></script>
+</head>
+<body ng-app="myModule">
+<div id="main" ng-controller="myController">
+  <div>{{factory}} - {{name}}</div>
+  <div ng-controller="childController">
+    <ul>
+      <li ng-repeat="name in names">{{factory}} - {{name}}</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

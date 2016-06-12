@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="UTF-8">
+    <title>Table Filter Demo</title>
+
+    <script src="../vendor/angular/angular.js"></script>
+    <script src="../js/context_schema_selector.js"></script>
+    <script src="../vendor/underscore/underscore-min.js"></script>
+
+    <script src="../vendor/jquery/dist/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css"/>
+
+    <style type="text/css">
+        .tableSection table td, .tableSection table th {
+            padding: 5px 10px;
+        }
+
+        .isKey {
+            background-color: rgba(239, 239, 239, 0.1);
+            cursor: pointer;
+        }
+
+        .isSelectable {
+            cursor: pointer;
+        }
+
+        .isSelected {
+            background-color: #B8FFB8;;
+        }
+
+        .isSelectedRow {
+            background-color: #B8FFB8;;
+        }
+
+        .tableFilter, .dataCategory, .dataSelectTable, .selection {
+            padding: 10px 10px;
+        }
+
+        .tableFilter {
+            padding-bottom: 0;
+        }
+
+        .selectedField {
+            display: inline-block;
+            padding: 5px 10px;
+            font-weight: bold;
+        }
+
+        .tar {
+            text-align: right;
+        }
+
+        .requiredTag {
+            color: red;
+            display: inline-block;
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        .valueDisplay {
+            color: #444;
+            display: inline-block;
+            padding: 5px;
+        }
+
+        .contextSchemas {
+            width: 500px;
+            display: inline-block;
+        }
+
+        .addAttributes {
+            width: 500px;
+            display: inline-block;
+        }
+
+        .contextKeysFilter {
+            width: 300px;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        .resultDisplay {
+            padding: 20px;
+            margin: 10px;
+            background-color: #efefef;
+            border-radius: 5px;
+            border: 1px solid #eee;
+        }
+    </style>
+</head>
+<body ng-app="myModule">
+    <div id="main" ng-controller="myController">
+        <!-- Select Data Category -->
+        <div class="dataCategory">
+            <div class="row">
+                <div class="col-md-3 col-sm-4 col-xs-12 tar">
+                    <span class="requiredTag">
+                        *
+                    </span>Select external data:
+                </div>
+                <div class="col-md-9 col-sm-8 col-xs-12">
+                    <select class="form-control contextSchemas" ng-model="data.schema" name="schema" required>
+                        <option value="">---Please select---</option>
+                        <option ng-repeat="option in schemaList"
+                                value="{{option.value}}"
+                        >{{option.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="tableSection" ng-show="data.schema">
+            <!-- Keys display, keys selection -->
+            <div class="dataSelectTable">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12 tar">
+                        <span class="requiredTag">
+                            *
+                        </span>Select keys:
+                    </div>
+                    <div class="col-md-9 col-sm-8 col-xs-12">
+                        <!-- Keys data filter -->
+                        <div class="keysFilter">
+                            Filter:
+                            <input class="form-control contextKeysFilter" type="text" ng-model="external.tableFilter" name="tableFilter" required />
+                        </div>
+
+                        <table>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th ng-repeat="item in keys" title="{{item}}">{{getHeaderText(item)}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="rowData in tableKeys | filter: isShow" ng-class="{isSelectedRow: isSelectedRow(rowData, $index)}">
+                                <td>
+                                    <input type="radio" name="keysSelected" ng-model="$parent.data.keysSelected" value="{{rowData}}" ng-click="onSelect(rowData, $index)"/>
+                                </td>
+                                <td ng-repeat="column in rowData"
+                                    ng-click="onSelect(rowData, $parent.$index)"
+                                    class="isSelectable"
+                                >
+                                    {{column}}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drop down list for additional attributes -->
+            <div class="attributesSelect">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4 col-xs-12 tar">
+                        <span class="requiredTag">
+                            *
+                        </span>Select additional attribute:
+                    </div>
+                    <div class="col-md-9 col-sm-8 col-xs-12">
+                        <select class="form-control addAttributes" ng-model="data.attribute" name="attribute" required>
+                            <option ng-repeat="option in additionalAttributes" value="{{option}}">{{option}}</option>
+                        </select>
+                        <span class="valueDisplay" title="Example value">
+                            {{getAttributeValue()}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result -->
+            <div class="resultDisplay">
+                data: {{data | json}}
+            </div>
+
+            <div class="resultDisplay">
+                selected: {{selected | json}}
+            </div>
+
+            <div class="resultDisplay">
+                keyIndex: {{keyIndex | json}}
+            </div>
+
+            <div class="resultDisplay">
+                keyMap: {{keyMap | json}}
+            </div>
+            <div class="resultDisplay">
+                attrMap: {{attrMap | json}}
+            </div>
+
+            <div class="resultDisplay">
+                tableHeader: {{tableHeader | json}}
+            </div>
+            <div class="resultDisplay">
+                keys: {{keys | json}}
+            </div>
+            <div class="resultDisplay">
+                tableData: {{tableData | json}}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

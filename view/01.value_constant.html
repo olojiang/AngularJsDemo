@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width">
+  <meta charset="UTF-8">
+  <title>Value && Constant</title>
+
+  <script src="../vendor/angular/angular.js"></script>
+  <script src="../js/value_constant.js"></script>
+</head>
+<body ng-app="myModule">
+<div id="main" ng-controller="myController">
+  <h3>Value</h3>
+  Value from, value injection: {{value}}
+  <br/>
+  Value2: {{value2}}
+  <br/>
+  Value3: {{value3}}
+  <br/>
+  Value4: {{value4 | json}}
+  <br/>
+  <h3>Constant</h3>
+  const1: {{const1}}
+</div>
+</body>
+</html>

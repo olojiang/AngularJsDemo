@@ -1,0 +1,36 @@
+{
+  "name": "angular-pinyin-translate",
+  "homepage": "https://github.com/jarden-liu",
+  "authors": [
+    "jarden-liu <372002582@qq.com>"
+  ],
+  "description": "A plugin to translate Chinese into pinyin",
+  "main": [
+    "dist/angular-pinyin-translate.js"
+  ],
+  "keywords": [
+    "ionic",
+    "ion",
+    "angular",
+    "pinyin",
+    "translate"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "1dab5bf4d9",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "1dab5bf4d9292560b0cbf95a554231df05d336f2"
+  },
+  "_source": "https://github.com/jarden-liu/angular-pinyin-translate.git",
+  "_target": "*",
+  "_originalSource": "angular-pinyin-translate",
+  "_direct": true
+}

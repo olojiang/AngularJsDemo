@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width">
+  <meta charset="UTF-8">
+  <title>Demo AmapDisplay Directive</title>
+  <script type="text/javascript"
+          src="https://webapi.amap.com/maps?v=1.3&key=ee828c16fa084c4d512e82eef1eebde1&plugin=AMap.Driving"></script>
+  <script src="../vendor/angular/angular.js"></script>
+  <script src="../modules/amap/controller/amapDirectiveDemo.js"></script>
+  <script src="../modules/amap/directive/amapDisplay.js"></script>
+  <script src="../modules/amap/service/amapHelper.js"></script>
+  <script src="../modules/amap/service/amapWrapper.js"></script>
+
+  <link rel="stylesheet" href="../css/amapDisplay.css"/>
+</head>
+<body ng-app="myModule">
+<h1>This will show how to use the AmapDisplay Attribute Directive</h1>
+<div id="main" ng-controller="myController">
+  <div amap-display data="data" id="amap" zoom-level="zoomlevel" center-point="centerPoint"
+       class="containerSizeDefault">
+  </div>
+
+  <h3>Change data in following to see the map dynamically changing</h3>
+  <h4>- Zoom level and center point</h4>
+  <div class="zoomLevelCenterPoint">
+    <label>Zoom Level: <input type="number" ng-model="zoomlevel" name="zoomlevel" min="3" max="19" required/></label>
+    <label>Center Point: <input type="text" ng-model="centerPointDisplay" name="centerPointDisplay" required/></label>
+  </div>
+  <h4>- Any one of those 3 types can be displayed separately</h4>
+  <textarea class="showData" cols="80" rows="40" ng-model="dataDisplay" name="dataDisplay" ng-trim="true"/>
+
+</div>
+</body>
+</html>

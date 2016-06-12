@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width">
+  <meta charset="UTF-8">
+  <title>List of clickable buttons</title>
+
+  <script src="../vendor/angular/angular.js"></script>
+  <script src="../js/20.list_clickable.js"></script>
+
+  <style type="text/css">
+    .clickable {
+      display: inline-block;
+      padding: 10px 20px;
+      border: 1px solid #eee;
+      margin-right: 10px;
+      border-radius: 5px;
+      transition: background-color 1.5s, color 2s;
+    }
+
+    .clickable:hover {
+      background-color: black;
+      color: #eee;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body ng-app="myModule">
+<div id="main" ng-controller="myController">
+        <span class="clickable"
+              ng-repeat="province in provinces track by $index"
+              ng-click="redirect(province)"
+        >
+            {{province.Code}} - {{province.Name}}
+        </span>
+</div>
+</body>
+</html>
