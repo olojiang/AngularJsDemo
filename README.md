@@ -20,4 +20,4 @@
 * view\15.style_class.html
 
 ### Refer to my Blog for those examples
-[Angular.js Play](http://www.olojiang.com/jiwei/list?tag=Angular.js&sort=title&direction=up&page=1)
+[Angular.js Play](https://www.olojiang.cn/jiwei/list?tag=Angular.js&sort=title&direction=up&page=1)
