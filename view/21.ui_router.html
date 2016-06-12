@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="UTF-8">
+    <title>UI Router demo</title>
+
+    <script src="../vendor/angular/angular.js"></script>
+    <script src="../vendor/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="../js/21.ui_router.js"></script>
+
+    <style type="text/css">
+        a {
+            color: blue;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body ng-app="myModule">
+    <div id="main" ng-controller="myController">
+        <h1>First page</h1>
+        <div ui-view>
+
+        </div>
+    </div>
+</body>
+</html>
