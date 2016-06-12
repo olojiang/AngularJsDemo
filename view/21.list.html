@@ -1,0 +1,25 @@
+<h2>List for the provinces</h2>
+
+<h3>$state.go()</h3>
+<ul>
+    <li>
+        <a ng-click="goDetail('1')">Province 1, by $state.go()</a>
+    </li>
+    <li>
+        <a ng-click="goDetail('42')">Province 42, by $state.go()</a>
+    </li>
+</ul>
+
+<h3>ui-sref</h3>
+<ul>
+    <li>
+        <a ui-sref="provinceDetail({ProvinceId: '2'})">Province 2, by ui-sref</a>
+    </li>
+    <li>
+        <a ui-sref="provinceDetail({ProvinceId: '42'})">Province 42, by ui-sref</a>
+    </li>
+</ul>
+
+<h3>Nested state</h3>
+<a ui-sref="province.child({ProvinceId: '42'})">Province 42, by ui-sref, to nested state</a>
+<div ui-view></div>
